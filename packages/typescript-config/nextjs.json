@@ -8,6 +8,13 @@
     "moduleResolution": "Bundler",
     "allowJs": true,
     "jsx": "preserve",
-    "noEmit": true
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "@workspace/ui": ["../ui/src"],
+      "@workspace/sanity-utils": ["../sanity-utils"],
+      "@workspace/sanity-types": ["../sanity-types"],
+    },
+    "skipLibCheck": true
   }
 }

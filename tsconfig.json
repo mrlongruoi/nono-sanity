@@ -1,4 +1,16 @@
 {
-  "extends": "@workspace/typescript-config/base.json"
+  "extends": "@workspace/typescript-config/base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@workspace/sanity-utils": ["packages/sanity-utils/index.ts"],
+      "@workspace/sanity-utils/*": ["packages/sanity-utils/src/*"],
+      "@workspace/sanity-types": ["packages/sanity-types/src/index.ts"],
+      "@workspace/sanity-types/*": ["packages/sanity-types/src/*"],
+      "@workspace/ui/*": ["packages/ui/src/*"]
+    }
+  },
+  "include": ["packages/**/*", "apps/**/*"]
+  ,
+  "exclude": ["**/dist/**", "node_modules"]
 }
-

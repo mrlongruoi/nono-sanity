@@ -1,0 +1,55 @@
+{
+  "name": "@workspace/sanity-utils",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": {
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./index": {
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
+    },
+    "./server": {
+      "import": "./src/server.ts",
+      "types": "./src/server.ts"
+    },
+    "./helpers/*": {
+      "import": "./src/helpers/*.ts",
+      "types": "./src/helpers/*.ts"
+    },
+    "./clients/*": {
+      "import": "./src/clients/*.ts",
+      "types": "./src/clients/*.ts"
+    },
+    "./lib/*": {
+      "import": "./src/lib/*.ts",
+      "types": "./src/lib/*.ts"
+    },
+    "./groq/*": {
+      "import": "./src/groq/*.ts",
+      "types": "./src/groq/*.ts"
+    },
+    "./live": {
+      "import": "./src/live/live.ts",
+      "types": "./src/live/live.ts"
+    },
+    "./image": {
+      "import": "./src/helpers/urlFor.ts",
+      "types": "./src/helpers/urlFor.ts"
+    }
+  },
+  "scripts": {
+    "clean": "echo 'No build needed - using source files'",
+    "build": "echo 'No build needed - using source files'"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.9"
+  },
+  "dependencies": {
+    "@sanity/image-url": "^1.2.0"
+  }
+}

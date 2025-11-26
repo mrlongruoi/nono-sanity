@@ -1,0 +1,5 @@
+{
+  "path": "../../packages/sanity-utils/src/groq/**/*.{ts,tsx}",
+  "schema": "./schema.json",
+  "generates": "../../packages/sanity-types/src/generated.ts"
+}
