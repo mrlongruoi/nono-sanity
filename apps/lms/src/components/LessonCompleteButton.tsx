@@ -2,7 +2,7 @@
 
 import { CheckCircle, Loader2, XCircle } from "lucide-react";
 import { Button } from "@workspace/ui/components/button";
-import { useState, useEffect, useTransition } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { completeLessonAction } from "@/app/actions/completeLessonAction";
 import { uncompleteLessonAction } from "@/app/actions/uncompleteLessonAction";
@@ -18,49 +18,86 @@ export function LessonCompleteButton({
   lessonId,
   clerkId,
 }: Readonly<LessonCompleteButtonProps>) {
-  const [isPending, setIsPending] = useState(false);
   const [isCompleted, setIsCompleted] = useState<boolean | null>(null);
+  const [isPending, setIsPending] = useState(false);
   const [isPendingTransition, startTransition] = useTransition();
+  const toggleControllerRef = useRef<AbortController | null>(null);
   const router = useRouter();
 
   useEffect(() => {
+    const controller = new AbortController();
+    const { signal } = controller;
+
     startTransition(async () => {
       try {
         const status = await getLessonCompletionStatusAction(lessonId, clerkId);
+
+        if (signal.aborted) {
+          return;
+        }
+
         setIsCompleted(status);
-      } catch (error) {
+      } catch (error: unknown) {
+        if (signal.aborted) {
+          // Ignore abort errors to avoid noisy logs when the component unmounts.
+          return;
+        }
+
         console.error("Error checking lesson completion status:", error);
         setIsCompleted(false);
       }
     });
+
+    return () => {
+      controller.abort();
+    };
   }, [lessonId, clerkId]);
 
   const handleToggle = async () => {
+    // Abort any in-flight toggle before starting a new one
+    if (toggleControllerRef.current) {
+      toggleControllerRef.current.abort();
+    }
+
+    const controller = new AbortController();
+    toggleControllerRef.current = controller;
+    const { signal } = controller;
+
+    setIsPending(true);
+
     try {
-      setIsPending(true);
       if (isCompleted) {
         await uncompleteLessonAction(lessonId, clerkId);
       } else {
         await completeLessonAction(lessonId, clerkId);
       }
 
-      startTransition(async () => {
-        const newStatus = await getLessonCompletionStatusAction(
-          lessonId,
-          clerkId
-        );
-        setIsCompleted(newStatus);
-      });
+      const newStatus = await getLessonCompletionStatusAction(lessonId, clerkId);
 
-      router.refresh();
-    } catch (error) {
+      if (signal.aborted) {
+        return;
+      }
+
+      startTransition(() => {
+        setIsCompleted(newStatus);
+        router.refresh();
+      });
+    } catch (error: unknown) {
+      if (signal.aborted) {
+        // Ignore AbortError-like cancellations
+        return;
+      }
+
       console.error("Error toggling lesson completion:", error);
     } finally {
+      if (toggleControllerRef.current === controller) {
+        toggleControllerRef.current = null;
+      }
       setIsPending(false);
     }
   };
 
-  const isLoading = isCompleted === null || isPendingTransition;
+  const isLoading = isCompleted === null || isPending || isPendingTransition;
 
   // Determine button content based on state
   const getButtonContent = () => {
@@ -69,15 +106,6 @@ export function LessonCompleteButton({
         <>
           <Loader2 className="h-4 w-4 mr-2 animate-spin" />
           Updating...
-        </>
-      );
-    }
-
-    if (isPending) {
-      return (
-        <>
-          <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-          {isCompleted ? "Uncompleting..." : "Completing..."}
         </>
       );
     }
@@ -116,7 +144,7 @@ export function LessonCompleteButton({
         </div>
         <Button
           onClick={handleToggle}
-          disabled={isPending || isLoading}
+          disabled={isLoading}
           size="lg"
           variant="default"
           className={cn(

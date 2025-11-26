@@ -19,7 +19,7 @@ export function getServerClient(): SanityClient {
 
   if (!projectId || !dataset) {
     throw new Error(
-      "Sanity server client: Missing SANITY_PROJECT_ID/SANITY_DATASET (or SANITY_STUDIO_PROJECT_ID/SANITY_STUDIO_DATASET)."
+      "Sanity server client: Missing one of the required environment variables: SANITY_PROJECT_ID, SANITY_DATASET, NEXT_PUBLIC_SANITY_PROJECT_ID, NEXT_PUBLIC_SANITY_DATASET (or their Studio equivalents SANITY_STUDIO_PROJECT_ID/SANITY_STUDIO_DATASET)."
     );
   }
 

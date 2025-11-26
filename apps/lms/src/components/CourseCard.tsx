@@ -84,7 +84,7 @@ export function CourseCard({ course, progress, href }: Readonly<CourseCardProps>
                                         </div>
                                     )}
                                     <span className="text-sm text-muted-foreground">
-                                        by {course.instructor.name}
+                                        by {course.instructor.name || "Instructor"}
                                     </span>
                                 </div>
                                 <BookOpen className="h-4 w-4 text-muted-foreground" />

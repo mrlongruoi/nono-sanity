@@ -15,8 +15,24 @@ export function DisableDraftMode() {
   }
 
   const handleClick = async () => {
-    await fetch("/api/draft-mode/disable");
-    router.refresh();
+    try {
+      const response = await fetch("/api/draft-mode/disable");
+
+      if (!response.ok) {
+        const message = await response.text().catch(() => "");
+        console.error(
+          "Failed to disable draft mode: non-OK response",
+          response.status,
+          message
+        );
+        return; // Do not refresh on failure
+      }
+
+      router.refresh();
+    } catch (error) {
+      console.error("Failed to disable draft mode: network or unexpected error", error);
+      // In a real app we might show a toast/notification here instead of silently failing
+    }
   };
 
   return (

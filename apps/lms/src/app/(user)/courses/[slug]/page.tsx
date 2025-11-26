@@ -39,15 +39,20 @@ export default async function CoursePage({ params }: Readonly<CoursePageProps>) 
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
       <div className="relative h-[60vh] w-full">
-        {course.image && (
-          <Image
-            src={urlFor(course.image).url() || ""}
-            alt={course.title || "Course Title"}
-            fill
-            className="object-cover"
-            priority
-          />
-        )}
+        {course.image && (() => {
+          const heroSrc = urlFor(course.image)?.url();
+          if (!heroSrc) return null;
+
+          return (
+            <Image
+              src={heroSrc}
+              alt={course.title || "Course Title"}
+              fill
+              className="object-cover"
+              priority
+            />
+          );
+        })()}
         <div className="absolute inset-0 bg-gradient-to-t from-black to-black/60" />
         <div className="absolute inset-0 container mx-auto px-4 flex flex-col justify-end pb-12">
           <Link
@@ -133,16 +138,21 @@ export default async function CoursePage({ params }: Readonly<CoursePageProps>) 
               {course.instructor && (
                 <div>
                   <div className="flex items-center gap-3 mb-4">
-                    {course.instructor.photo && (
-                      <div className="relative h-12 w-12">
-                        <Image
-                          src={urlFor(course.instructor.photo).url() || ""}
-                          alt={course.instructor.name || "Course Instructor"}
-                          fill
-                          className="rounded-full object-cover"
-                        />
-                      </div>
-                    )}
+                    {course.instructor.photo && (() => {
+                      const instructorSrc = urlFor(course.instructor.photo)?.url();
+                      if (!instructorSrc) return null;
+
+                      return (
+                        <div className="relative h-12 w-12">
+                          <Image
+                            src={instructorSrc}
+                            alt={course.instructor.name || "Course Instructor"}
+                            fill
+                            className="rounded-full object-cover"
+                          />
+                        </div>
+                      );
+                    })()}
                     <div>
                       <div className="font-medium">
                         {course.instructor.name}

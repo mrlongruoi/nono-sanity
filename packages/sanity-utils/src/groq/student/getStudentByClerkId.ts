@@ -9,5 +9,6 @@ export async function getStudentByClerkId(clerkId: string) {
 
   const student = await sanityFetch<any>(getStudentByClerkIdQuery, { clerkId });
 
-  return student;
+  // Wrap in data property to match expected structure in checkCourseAccess
+  return student ? { data: student } : null;
 }

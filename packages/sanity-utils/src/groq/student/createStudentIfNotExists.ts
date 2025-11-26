@@ -43,17 +43,31 @@ export async function createStudentIfNotExists({
 
   // If no student exists, create a new one
   const { getServerClient } = await import("../../clients/client.server");
+  try {
+    const newStudent = await getServerClient().create({
+      _type: "student",
+      clerkId,
+      email,
+      firstName,
+      lastName,
+      imageUrl,
+    });
 
-  const newStudent = await getServerClient().create({
-    _type: "student",
-    clerkId,
-    email,
-    firstName,
-    lastName,
-    imageUrl,
-  });
+    console.log("New student created", newStudent);
 
-  console.log("New student created", newStudent);
+    return newStudent as Student;
+  } catch (error) {
+    console.error("Failed to create student in createStudentIfNotExists", {
+      clerkId,
+      email,
+      firstName,
+      lastName,
+      imageUrl,
+      error,
+    });
 
-  return newStudent as Student;
+    throw new Error(
+      `Failed to create student for clerkId ${clerkId} and email ${email}.`
+    );
+  }
 }

@@ -76,7 +76,7 @@ export const courseProgressQuery = defineQuery(`
 
 export async function getCourseProgress(clerkId: string, courseId: string) {
   const s = await getStudentByClerkId(clerkId);
-  if (!s?._id) throw new Error("Student not found");
+  if (!s?.data?._id) throw new Error("Student not found");
 
   type CourseProgressResult = {
     completedLessons?: Array<any>;
@@ -84,7 +84,7 @@ export async function getCourseProgress(clerkId: string, courseId: string) {
   };
 
   const result = await sanityFetch<CourseProgressResult>(courseProgressQuery, {
-    studentId: s._id,
+    studentId: s.data._id,
     courseId,
   });
 

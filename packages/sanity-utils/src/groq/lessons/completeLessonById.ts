@@ -27,8 +27,8 @@ export async function completeLessonById({
 }) {
   const student = await getStudentByClerkId(clerkId);
 
-  if (!student?._id) throw new Error("Student not found");
-  const studentId = student._id;
+  if (!student?.data?._id) throw new Error("Student not found");
+  const studentId = student.data._id;
 
   const existing = await sanityFetch<any>(existingCompletionQuery, {
     studentId,

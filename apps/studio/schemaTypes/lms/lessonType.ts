@@ -31,6 +31,17 @@ export default defineType({
       title: 'Video URL',
       type: 'url',
       description: 'The URL for the video player (e.g. YouTube, Vimeo)',
+      validation: (rule) =>
+        rule.custom((value) => {
+          if (!value) return true; // Allow empty value
+          
+          // Check if URL starts with protocol
+          if (!value.startsWith('http://') && !value.startsWith('https://')) {
+            return 'URL must start with https:// or http://';
+          }
+          
+          return true;
+        }),
     }),
     defineField({
       name: 'loomUrl',
@@ -49,7 +60,9 @@ export default defineType({
               return 'Must be a Loom share URL'
             }
             const videoId = url.pathname.split('/share/')[1]
-            if (!/^[a-f0-9-]{32,36}/.test(videoId)) {
+            // Accept Loom video IDs with dashes (UUID format: 8-4-4-4-12) or without (32 hex chars)
+            const loomUuidPattern = /^[a-f0-9]{8}-?[a-f0-9]{4}-?[a-f0-9]{4}-?[a-f0-9]{4}-?[a-f0-9]{12}$/i
+            if (!loomUuidPattern.test(videoId)) {
               return 'Invalid Loom video ID in URL'
             }
             return true

@@ -5,7 +5,7 @@ import { useUser } from "@clerk/nextjs";
 import { CheckCircle } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 
 function EnrollButton({
   courseId,
@@ -17,20 +17,31 @@ function EnrollButton({
   const { user, isLoaded: isUserLoaded } = useUser();
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+  const [enrollError, setEnrollError] = useState<string | null>(null);
 
   const handleEnroll = async (courseId: string) => {
     startTransition(async () => {
       try {
         const userId = user?.id;
-        if (!userId) return;
+        if (!userId) {
+          setEnrollError("You must be signed in to enroll in this course.");
+          return;
+        }
 
         const { url } = await createStripeCheckout(courseId, userId);
         if (url) {
+          setEnrollError(null); // clear any previous errors on success
           router.push(url);
+        } else {
+          setEnrollError(
+            "Unable to start checkout. Please try again or contact support if the issue persists."
+          );
         }
       } catch (error) {
         console.error("Error in handleEnroll:", error);
-        throw new Error("Failed to create checkout session");
+        setEnrollError(
+          "Failed to start enrollment. Please try again in a moment."
+        );
       }
     });
   };
@@ -60,32 +71,40 @@ function EnrollButton({
 
   // Show enroll button only when we're sure user is not enrolled
   return (
-    <button
-      className={`w-full rounded-lg px-6 py-3 font-medium transition-all duration-300 ease-in-out relative h-12
+    <div className="w-full flex flex-col gap-2">
+      {enrollError && (
+        <div className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-md px-3 py-2">
+          {enrollError}
+        </div>
+      )}
+
+      <button
+        className={`w-full rounded-lg px-6 py-3 font-medium transition-all duration-300 ease-in-out relative h-12
         ${
           isPending || !user?.id
             ? "bg-gray-100 text-gray-400 cursor-not-allowed hover:scale-100"
             : "bg-white text-black hover:scale-105 hover:shadow-lg hover:shadow-black/10"
         }
       `}
-      disabled={!user?.id || isPending}
-      onClick={() => handleEnroll(courseId)}
-    >
-      {user?.id ? (
-        <span className={`${isPending ? "opacity-0" : "opacity-100"}`}>
-          Enroll Now
-        </span>
-      ) : (
-        <span className={`${isPending ? "opacity-0" : "opacity-100"}`}>
-          Sign in to Enroll
-        </span>
-      )}
-      {isPending && (
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-5 h-5 border-2 border-gray-400 border-t-gray-600 rounded-full animate-spin" />
-        </div>
-      )}
-    </button>
+        disabled={!user?.id || isPending}
+        onClick={() => handleEnroll(courseId)}
+      >
+        {user?.id ? (
+          <span className={`${isPending ? "opacity-0" : "opacity-100"}`}>
+            Enroll Now
+          </span>
+        ) : (
+          <span className={`${isPending ? "opacity-0" : "opacity-100"}`}>
+            Sign in to Enroll
+          </span>
+        )}
+        {isPending && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-5 h-5 border-2 border-gray-400 border-t-gray-600 rounded-full animate-spin" />
+          </div>
+        )}
+      </button>
+    </div>
   );
 }
 

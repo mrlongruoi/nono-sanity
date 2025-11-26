@@ -11,13 +11,13 @@ export default defineType({
       type: "string",
       validation: (rule) => rule.required(),
     }),
-    {
+    defineField({
       name: "price",
       title: "Price (USD)",
       type: "number",
       description: "Price in USD",
-      validation: (Rule) => Rule.min(0),
-    },
+      validation: (rule) => rule.min(0),
+    }),
     defineField({
       name: "slug",
       title: "Slug",

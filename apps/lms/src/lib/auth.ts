@@ -21,6 +21,10 @@ export async function checkCourseAccess(
 
   const student = await getStudentByClerkId(clerkId);
   if (!student?.data?._id) {
+    console.error("checkCourseAccess: Student not found or missing _id", {
+      clerkId,
+      studentData: student,
+    });
     return {
       isAuthorized: false,
       redirect: "/",
@@ -29,10 +33,25 @@ export async function checkCourseAccess(
 
   const isEnrolled = await isEnrolledInCourse(clerkId, courseId);
   const course = await getCourseById(courseId);
+
   if (!isEnrolled) {
+    const courseSlug = course?.slug?.current;
+
+    if (!course || !courseSlug) {
+      console.warn(
+        "checkCourseAccess: Course not found or missing slug for unauthorized access redirect",
+        { clerkId, courseId }
+      );
+
+      return {
+        isAuthorized: false,
+        redirect: "/courses",
+      };
+    }
+
     return {
       isAuthorized: false,
-      redirect: `/courses/${course?.slug?.current}`,
+      redirect: `/courses/${courseSlug}`,
     };
   }
 

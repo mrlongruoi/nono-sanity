@@ -55,15 +55,32 @@ export async function POST(req: Request) {
         return new NextResponse(null, { status: 200 }); // Return 200 to acknowledge receipt
       }
 
-      // Create an enrollment record in Sanity
-      await createEnrollment({
+      // Guard against missing amount_total (can be null/undefined for free/$0 sessions)
+      const rawAmountTotal = session.amount_total;
+
+      if (rawAmountTotal == null) {
+        console.log(
+          "Stripe checkout session has no amount_total; treating as $0 payment",
+          {
+            sessionId: session.id,
+            courseId,
+            userId,
+          }
+        );
+      }
+
+      const amount = (rawAmountTotal ?? 0) / 100; // Convert from cents to dollars
+
+      // Create an enrollment record in Sanity (idempotent by paymentId + student + course)
+      const enrollment = await createEnrollment({
         studentId: student.data._id,
         courseId,
         paymentId: session.id,
-        amount: session.amount_total! / 100, // Convert from cents to dollars
+        amount,
       });
 
-      console.log("Enrollment created successfully:", {
+      console.log("Enrollment ensured (created or existing):", {
+        enrollmentId: enrollment?._id,
         studentId: student.data._id,
         courseId,
         paymentId: session.id,

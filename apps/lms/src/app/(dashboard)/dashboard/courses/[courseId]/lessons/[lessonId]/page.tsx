@@ -23,6 +23,16 @@ export default async function LessonPage({ params }: Readonly<LessonPageProps>) 
     return redirect(`/dashboard/courses/${courseId}`);
   }
 
+  // Debug logging (server-side)
+  console.log("🎬 Lesson Data:", {
+    id: lesson._id,
+    title: lesson.title,
+    hasVideoUrl: !!lesson.videoUrl,
+    videoUrl: lesson.videoUrl,
+    hasLoomUrl: !!lesson.loomUrl,
+    loomUrl: lesson.loomUrl,
+  });
+
   return (
     <div className="h-full flex flex-col overflow-hidden">
       <div className="flex-1 overflow-y-auto">

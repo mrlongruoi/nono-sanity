@@ -24,8 +24,9 @@ export default async function CourseLayout({
   }
 
   const authResult = await checkCourseAccess(user?.id || null, courseId);
-  if (!authResult.isAuthorized || !user?.id) {
-    return redirect(authResult.redirect!);
+  if (!authResult.isAuthorized) {
+    const fallbackRedirect = authResult.redirect ?? "/dashboard";
+    return redirect(fallbackRedirect);
   }
 
   const [course, progress] = await Promise.all([

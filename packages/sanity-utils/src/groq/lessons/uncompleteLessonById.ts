@@ -23,10 +23,10 @@ export async function uncompleteLessonById({
   clerkId: string;
 }) {
   const student = await getStudentByClerkId(clerkId);
-  if (!student?._id) throw new Error("Student not found");
+  if (!student?.data?._id) throw new Error("Student not found");
 
   const completion = await sanityFetch<{ _id: string }>(uncompleteLessonCompletionQuery, {
-    studentId: student._id,
+    studentId: student.data._id,
     lessonId,
   });
 
@@ -36,7 +36,20 @@ export async function uncompleteLessonById({
 
   const { getServerClient } = await import("../../clients/client.server");
 
-  await getServerClient().delete(completion._id);
+  try {
+    await getServerClient().delete(completion._id);
+  } catch (error) {
+    console.error("Failed to delete lessonCompletion in uncompleteLessonById", {
+      completionId: completion._id,
+      lessonId,
+      clerkId,
+      error,
+    });
+
+    throw new Error(
+      `Failed to uncomplete lesson. Could not delete completion document with id ${completion._id}.`
+    );
+  }
 
   return { success: true, deletedId: completion._id };
 }

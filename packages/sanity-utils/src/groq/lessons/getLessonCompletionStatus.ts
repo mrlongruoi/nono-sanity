@@ -10,10 +10,10 @@ export const lessonCompletionStatusQuery = defineQuery(`
 
 export async function getLessonCompletionStatus(lessonId: string, clerkId: string) {
   const s = await getStudentByClerkId(clerkId);
-  if (!s?._id) throw new Error("Student not found");
+  if (!s?.data?._id) throw new Error("Student not found");
 
   const result = await sanityFetch(lessonCompletionStatusQuery, {
-    studentId: s._id,
+    studentId: s.data._id,
     lessonId,
   });
 

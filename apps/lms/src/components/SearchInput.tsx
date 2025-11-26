@@ -23,6 +23,7 @@ export function SearchInput() {
         >
             <input
                 type="text"
+                aria-label="Tìm kiếm khóa học"
                 placeholder="Tìm kiếm khóa học..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
