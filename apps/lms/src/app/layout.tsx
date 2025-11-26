@@ -5,6 +5,7 @@ import "@workspace/ui/globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { DisableDraftMode } from "@/components/DisableDraftMode"
 import { draftMode } from "next/headers";
+import { SanityLive } from "@workspace/sanity-utils/live";
 
 const fontSans = Geist({
   subsets: ["latin"],
@@ -26,18 +27,17 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const isDraftMode = (await draftMode()).isEnabled;
+  
   return (
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${fontSans.variable} ${fontMono.variable} font-sans antialiased`}
       >
-
-        {(await draftMode()).isEnabled && (
-          <>
-            <DisableDraftMode />
-            <VisualEditing />
-          </>
-        )}
+        {/* VisualEditing must always be rendered for Presentation Tool connection */}
+        <VisualEditing />
+        
+        {isDraftMode && <DisableDraftMode />}
 
         <ThemeProvider
           attribute="class"
@@ -45,6 +45,7 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <SanityLive />
           {children}
         </ThemeProvider>
       </body>

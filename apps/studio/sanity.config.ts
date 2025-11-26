@@ -3,6 +3,9 @@ import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemaTypes'
 import {structure} from './structures'
+import {presentationTool} from 'sanity/presentation'
+
+const apiVersion = process.env.SANITY_API_VERSION || '2024-11-24'
 
 export default defineConfig({
   name: 'default',
@@ -15,8 +18,24 @@ export default defineConfig({
     structureTool({
       structure,
     }),
-    visionTool(),
+    visionTool({defaultApiVersion: apiVersion}),
+    presentationTool({
+      previewUrl: {
+        origin: 'http://localhost:3000',
+        previewMode: {
+          enable: '/api/draft-mode/enable',
+          disable: '/api/draft-mode/disable',
+        },
+      },
+    }),
   ],
+
+  beta: {
+    create: {
+      startInCreateEnabled: true,
+      fallbackStudioOrigin: 'app-lms.sanity.studio',
+    },
+  },
 
   schema: {
     types: schemaTypes,

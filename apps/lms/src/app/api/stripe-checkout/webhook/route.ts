@@ -50,7 +50,7 @@ export async function POST(req: Request) {
 
       const student = await getStudentByClerkId(userId);
 
-      if (!student.data) {
+      if (!student?.data) {
         console.log("Student not found for clerkId:", userId);
         return new NextResponse(null, { status: 200 }); // Return 200 to acknowledge receipt
       }
