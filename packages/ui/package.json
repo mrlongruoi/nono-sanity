@@ -4,7 +4,9 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "lint": "eslint . --max-warnings 0"
+    "lint": "eslint . --max-warnings 0",
+    "check-types": "tsc --noEmit",
+    "build": "echo 'No build needed - using source files'"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.12",
@@ -65,8 +67,10 @@
     "typescript": "^5.9.3"
   },
   "exports": {
+    ".": "./src/index.ts",
     "./globals.css": "./src/styles/globals.css",
     "./postcss.config": "./postcss.config.mjs",
+    "./providers": "./src/providers.tsx",
     "./lib/*": "./src/lib/*.ts",
     "./components/*": "./src/components/*",
     "./hooks/*": "./src/hooks/*"

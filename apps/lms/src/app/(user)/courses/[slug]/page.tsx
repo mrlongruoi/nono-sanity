@@ -6,7 +6,7 @@ import { urlFor } from "@workspace/sanity-utils/image";
 import { getCourseBySlugQuery } from "@workspace/sanity-utils/groq/course/getCourseBySlug";
 import { isEnrolledInCourse } from "@workspace/sanity-utils/groq/student/isEnrolledInCourse";
 import { EnrollButton } from "@/components/EnrollButton";
-import { sanityFetch } from "@workspace/sanity-utils/live";
+import { sanityFetch } from "@workspace/sanity-utils/live/live.server";
 
 // Force dynamic rendering to always check enrollment status
 export const dynamic = "force-dynamic";

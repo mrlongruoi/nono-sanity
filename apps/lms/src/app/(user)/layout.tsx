@@ -1,6 +1,6 @@
 import { Metadata } from "next"
 import { ClerkProvider } from "@clerk/nextjs"
-import { SanityLive } from "@workspace/sanity-utils/live"
+import { SanityLive } from "@workspace/sanity-utils/live/live.server"
 import Header from "@/components/Header"
 import "@workspace/ui/globals.css"
 

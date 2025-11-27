@@ -1,5 +1,5 @@
 import { defineQuery } from "groq";
-import { sanityFetch } from "../../helpers/sanityFetch";
+import { sanityFetch } from "../../live/live";
 import { getStudentByClerkId } from "../student/getStudentByClerkId";
 
 export const lessonCompletionStatusQuery = defineQuery(`
@@ -12,10 +12,13 @@ export async function getLessonCompletionStatus(lessonId: string, clerkId: strin
   const s = await getStudentByClerkId(clerkId);
   if (!s?.data?._id) throw new Error("Student not found");
 
-  const result = await sanityFetch(lessonCompletionStatusQuery, {
-    studentId: s.data._id,
-    lessonId,
+  const result = await sanityFetch({ 
+    query: lessonCompletionStatusQuery, 
+    params: {
+      studentId: s.data._id,
+      lessonId,
+    }
   });
 
-  return result !== null;
+  return result.data !== null;
 }

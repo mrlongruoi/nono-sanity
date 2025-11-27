@@ -6,8 +6,6 @@ import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@workspace/ui/components/collapsible";
-import {
   Sidebar,
   SidebarContent,
   SidebarGroup,
@@ -19,7 +17,7 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
   SidebarRail,
-} from "@workspace/ui/components/sidebar";
+} from "@workspace/ui";
 import Image from "next/image";
 import ReddishLogo from "@/images/Reddish-Full.png";
 import Link from "next/link";

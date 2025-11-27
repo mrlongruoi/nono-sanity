@@ -4,9 +4,13 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@workspace/ui/components/accordion";
-import { ScrollArea } from "@workspace/ui/components/scroll-area";
-import { Button } from "@workspace/ui/components/button";
+  ScrollArea,
+  Button,
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@workspace/ui";
 import {
   ArrowLeft,
   Library,
@@ -16,7 +20,7 @@ import {
   Check,
 } from "lucide-react";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
+import { cn } from "@workspace/ui/lib/utils";
 import { usePathname } from "next/navigation";
 import {
   GetCourseByIdQueryResult,
@@ -25,12 +29,6 @@ import {
 } from "@workspace/sanity-types";
 import { useSidebar } from "@/components/providers/sidebar-provider";
 import { useEffect, useState } from "react";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@workspace/ui/components/tooltip";
 import DarkModeToggle from "../DarkModeToggle";
 import { CourseProgress } from "@/components/CourseProgress";
 import { calculateCourseProgress } from "@workspace/sanity-utils";

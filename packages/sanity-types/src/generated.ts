@@ -13,6 +13,534 @@
  */
 
 // Source: schema.json
+export type Navigation = {
+  _id: string;
+  _type: "navigation";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  href?: string;
+  icon?: string;
+  isExternal?: boolean;
+  order?: number;
+};
+
+export type SiteSettings = {
+  _id: string;
+  _type: "siteSettings";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  siteTitle?: string;
+  siteDescription?: string;
+  siteKeywords?: Array<string>;
+  siteLogo?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  favicon?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  ogImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  primaryColor?: string;
+  secondaryColor?: string;
+  accentColor?: string;
+  ctaText?: string;
+  ctaUrl?: string;
+  heroHeadline?: string;
+  heroSubheadline?: string;
+  heroBackground?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  showBlog?: boolean;
+  showServices?: boolean;
+  showTestimonials?: boolean;
+  googleAnalyticsId?: string;
+  facebookPixelId?: string;
+  twitterHandle?: string;
+  footer?: {
+    text?: string;
+    copyrightText?: string;
+    links?: Array<{
+      title?: string;
+      url?: string;
+      _key: string;
+    }>;
+  };
+  maintenanceMode?: boolean;
+  maintenanceMessage?: string;
+};
+
+export type SanityImageCrop = {
+  _type: "sanity.imageCrop";
+  top?: number;
+  bottom?: number;
+  left?: number;
+  right?: number;
+};
+
+export type SanityImageHotspot = {
+  _type: "sanity.imageHotspot";
+  x?: number;
+  y?: number;
+  height?: number;
+  width?: number;
+};
+
+export type Contact = {
+  _id: string;
+  _type: "contact";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  email?: string;
+  subject?: string;
+  message?: string;
+  submittedAt?: string;
+  status?: "new" | "archived";
+  notes?: string;
+};
+
+export type Service = {
+  _id: string;
+  _type: "service";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  slug?: Slug;
+  icon?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  shortDescription?: string;
+  fullDescription?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
+  features?: Array<string>;
+  technologies?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "skill";
+  }>;
+  deliverables?: Array<string>;
+  pricing?: {
+    startingPrice?: number;
+    priceType?: "hourly" | "project" | "monthly" | "custom";
+    description?: string;
+  };
+  timeline?: string;
+  featured?: boolean;
+  order?: number;
+};
+
+export type Slug = {
+  _type: "slug";
+  current?: string;
+  source?: string;
+};
+
+export type Blog = {
+  _id: string;
+  _type: "blog";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  slug?: Slug;
+  excerpt?: string;
+  featuredImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  category?: "tutorial" | "technical" | "ai-ml" | "web-dev" | "career" | "opinion" | "showcase" | "best-practices" | "news";
+  tags?: Array<string>;
+  publishedAt?: string;
+  readTime?: number;
+};
+
+export type Achievement = {
+  _id: string;
+  _type: "achievement";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  type?: "award" | "hackathon" | "publication" | "speaking" | "open-source" | "milestone" | "recognition" | "other";
+  issuer?: string;
+  date?: string;
+  description?: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  url?: string;
+  featured?: boolean;
+  order?: number;
+};
+
+export type Certification = {
+  _id: string;
+  _type: "certification";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  issuer?: string;
+  issueDate?: string;
+  expiryDate?: string;
+  credentialId?: string;
+  credentialUrl?: string;
+  logo?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  description?: string;
+  skills?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "skill";
+  }>;
+  order?: number;
+};
+
+export type Testimonial = {
+  _id: string;
+  _type: "testimonial";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  position?: string;
+  company?: string;
+  avatar?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  testimonial?: string;
+  rating?: number;
+  date?: string;
+  linkedinUrl?: string;
+  companyLogo?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  featured?: boolean;
+  order?: number;
+};
+
+export type Education = {
+  _id: string;
+  _type: "education";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  institution?: string;
+  degree?: string;
+  fieldOfStudy?: string;
+  startDate?: string;
+  endDate?: string;
+  current?: boolean;
+  gpa?: string;
+  description?: string;
+  achievements?: Array<string>;
+  logo?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  website?: string;
+  order?: number;
+};
+
+export type Experience = {
+  _id: string;
+  _type: "experience";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  company?: string;
+  position?: string;
+  employmentType?: "full-time" | "part-time" | "contract" | "freelance" | "internship";
+  location?: string;
+  startDate?: string;
+  endDate?: string;
+  current?: boolean;
+  description?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
+  responsibilities?: Array<string>;
+  achievements?: Array<string>;
+  technologies?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "skill";
+  }>;
+  companyLogo?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  companyWebsite?: string;
+  order?: number;
+};
+
+export type Skill = {
+  _id: string;
+  _type: "skill";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  category?: "frontend" | "backend" | "ai-ml" | "devops" | "database" | "mobile" | "cloud" | "testing" | "design" | "tools" | "soft-skills" | "other";
+  proficiency?: "beginner" | "intermediate" | "advanced" | "expert";
+  percentage?: number;
+  yearsOfExperience?: number;
+  color?: string;
+};
+
+export type Project = {
+  _id: string;
+  _type: "project";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  slug?: Slug;
+  tagline?: string;
+  coverImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  technologies?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "skill";
+  }>;
+  category?: "web-app" | "mobile-app" | "ai-ml" | "api-backend" | "devops" | "open-source" | "cli-tool" | "desktop-app" | "browser-extension" | "game" | "other";
+  liveUrl?: string;
+  githubUrl?: string;
+  featured?: boolean;
+  order?: number;
+};
+
+export type Profile = {
+  _id: string;
+  _type: "profile";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  firstName?: string;
+  lastName?: string;
+  headline?: string;
+  headlineStaticText?: string;
+  headlineAnimatedWords?: Array<string>;
+  headlineAnimationDuration?: number;
+  shortBio?: string;
+  fullBio?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
+  profileImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  email?: string;
+  phone?: string;
+  location?: string;
+  availability?: "available" | "open" | "unavailable";
+  socialLinks?: {
+    github?: string;
+    linkedin?: string;
+    twitter?: string;
+    website?: string;
+    medium?: string;
+    devto?: string;
+    youtube?: string;
+    stackoverflow?: string;
+  };
+  yearsOfExperience?: number;
+  stats?: Array<{
+    label?: string;
+    value?: string;
+    _key: string;
+  }>;
+};
+
 export type Vote = {
   _id: string;
   _type: "vote";
@@ -127,22 +655,6 @@ export type Post = {
   isDeleted?: boolean;
 };
 
-export type SanityImageCrop = {
-  _type: "sanity.imageCrop";
-  top?: number;
-  bottom?: number;
-  left?: number;
-  right?: number;
-};
-
-export type SanityImageHotspot = {
-  _type: "sanity.imageHotspot";
-  x?: number;
-  y?: number;
-  height?: number;
-  width?: number;
-};
-
 export type Subreddit = {
   _id: string;
   _type: "subreddit";
@@ -172,12 +684,6 @@ export type Subreddit = {
     [internalGroqTypeReferenceTo]?: "user";
   };
   createdAt?: string;
-};
-
-export type Slug = {
-  _type: "slug";
-  current?: string;
-  source?: string;
 };
 
 export type User = {
@@ -511,7 +1017,7 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type AllSanitySchemaTypes = Vote | Comment | Post | SanityImageCrop | SanityImageHotspot | Subreddit | Slug | User | LessonCompletion | Lesson | Module | Enrollment | Student | Course | Instructor | Category | BlockContent | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
+export type AllSanitySchemaTypes = Navigation | SiteSettings | SanityImageCrop | SanityImageHotspot | Contact | Service | Slug | Blog | Achievement | Certification | Testimonial | Education | Experience | Skill | Project | Profile | Vote | Comment | Post | Subreddit | User | LessonCompletion | Lesson | Module | Enrollment | Student | Course | Instructor | Category | BlockContent | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ../../packages/sanity-utils/src/groq/comment/getCommentById.ts
 // Variable: getCommentByIdQuery
@@ -1431,6 +1937,576 @@ export type UncompleteLessonCompletionQueryResult = {
   _id: string;
 } | null;
 
+// Source: ../../packages/sanity-utils/src/groq/portfolio/getAchievements.ts
+// Variable: getAchievementsQuery
+// Query: *[_type == "achievement"] | order(date desc) {    _id,    _type,    _createdAt,    _updatedAt,    _rev,    title,    type,    description,    date,    organization,    link,    image,    featured,    tags  }
+export type GetAchievementsQueryResult = Array<{
+  _id: string;
+  _type: "achievement";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title: string | null;
+  type: "award" | "hackathon" | "milestone" | "open-source" | "other" | "publication" | "recognition" | "speaking" | null;
+  description: string | null;
+  date: string | null;
+  organization: null;
+  link: null;
+  image: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  } | null;
+  featured: boolean | null;
+  tags: null;
+}>;
+
+// Source: ../../packages/sanity-utils/src/groq/portfolio/getBlogPostBySlug.ts
+// Variable: getBlogPostBySlugQuery
+// Query: *[_type == "blog" && slug.current == $slug][0] {    _id,    _type,    _createdAt,    _updatedAt,    _rev,    title,    slug,    excerpt,    featuredImage,    content,    category,    tags,    author,    publishedAt,    readingTime,    featured,    seo  }
+export type GetBlogPostBySlugQueryResult = {
+  _id: string;
+  _type: "blog";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title: string | null;
+  slug: Slug | null;
+  excerpt: string | null;
+  featuredImage: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  } | null;
+  content: null;
+  category: "ai-ml" | "best-practices" | "career" | "news" | "opinion" | "showcase" | "technical" | "tutorial" | "web-dev" | null;
+  tags: Array<string> | null;
+  author: null;
+  publishedAt: string | null;
+  readingTime: null;
+  featured: null;
+  seo: null;
+} | null;
+
+// Source: ../../packages/sanity-utils/src/groq/portfolio/getBlogPosts.ts
+// Variable: getBlogPostsQuery
+// Query: *[_type == "blog"] | order(publishedAt desc) {    _id,    _type,    _createdAt,    _updatedAt,    _rev,    title,    slug,    excerpt,    featuredImage,    category,    tags,    author,    publishedAt,    readingTime,    featured  }
+export type GetBlogPostsQueryResult = Array<{
+  _id: string;
+  _type: "blog";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title: string | null;
+  slug: Slug | null;
+  excerpt: string | null;
+  featuredImage: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  } | null;
+  category: "ai-ml" | "best-practices" | "career" | "news" | "opinion" | "showcase" | "technical" | "tutorial" | "web-dev" | null;
+  tags: Array<string> | null;
+  author: null;
+  publishedAt: string | null;
+  readingTime: null;
+  featured: null;
+}>;
+
+// Source: ../../packages/sanity-utils/src/groq/portfolio/getCertifications.ts
+// Variable: getCertificationsQuery
+// Query: *[_type == "certification"] | order(issueDate desc) {    _id,    _type,    _createdAt,    _updatedAt,    _rev,    name,    issuer,    issueDate,    expiryDate,    credentialId,    credentialUrl,    logo,    description,    skills  }
+export type GetCertificationsQueryResult = Array<{
+  _id: string;
+  _type: "certification";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name: string | null;
+  issuer: string | null;
+  issueDate: string | null;
+  expiryDate: string | null;
+  credentialId: string | null;
+  credentialUrl: string | null;
+  logo: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  } | null;
+  description: string | null;
+  skills: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "skill";
+  }> | null;
+}>;
+
+// Source: ../../packages/sanity-utils/src/groq/portfolio/getContacts.ts
+// Variable: getContactsQuery
+// Query: *[_type == "contact"] | order(_createdAt desc) {    _id,    _type,    _createdAt,    _updatedAt,    _rev,    name,    email,    subject,    message,    phone,    company,    status,    notes  }
+export type GetContactsQueryResult = Array<{
+  _id: string;
+  _type: "contact";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name: string | null;
+  email: string | null;
+  subject: string | null;
+  message: string | null;
+  phone: null;
+  company: null;
+  status: "archived" | "new" | null;
+  notes: string | null;
+}>;
+
+// Source: ../../packages/sanity-utils/src/groq/portfolio/getEducationHistory.ts
+// Variable: getEducationHistoryQuery
+// Query: *[_type == "education"] | order(startDate desc) {    _id,    _type,    _createdAt,    _updatedAt,    _rev,    institution,    institutionLogo,    degree,    field,    location,    startDate,    endDate,    current,    gpa,    description,    achievements,    coursework  }
+export type GetEducationHistoryQueryResult = Array<{
+  _id: string;
+  _type: "education";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  institution: string | null;
+  institutionLogo: null;
+  degree: string | null;
+  field: null;
+  location: null;
+  startDate: string | null;
+  endDate: string | null;
+  current: boolean | null;
+  gpa: string | null;
+  description: string | null;
+  achievements: Array<string> | null;
+  coursework: null;
+}>;
+
+// Source: ../../packages/sanity-utils/src/groq/portfolio/getExperiences.ts
+// Variable: getExperiencesQuery
+// Query: *[_type == "experience"] | order(startDate desc) {    _id,    _type,    _createdAt,    _updatedAt,    _rev,    company,    companyLogo,    position,    location,    locationType,    startDate,    endDate,    current,    description,    responsibilities,    achievements,    technologies  }
+export type GetExperiencesQueryResult = Array<{
+  _id: string;
+  _type: "experience";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  company: string | null;
+  companyLogo: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  } | null;
+  position: string | null;
+  location: string | null;
+  locationType: null;
+  startDate: string | null;
+  endDate: string | null;
+  current: boolean | null;
+  description: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }> | null;
+  responsibilities: Array<string> | null;
+  achievements: Array<string> | null;
+  technologies: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "skill";
+  }> | null;
+}>;
+
+// Source: ../../packages/sanity-utils/src/groq/portfolio/getNavigation.ts
+// Variable: getNavigationQuery
+// Query: *[_type == "navigation"] | order(order asc) {    _id,    _type,    _createdAt,    _updatedAt,    _rev,    label,    href,    order,    isExternal,    showInHeader,    showInFooter  }
+export type GetNavigationQueryResult = Array<{
+  _id: string;
+  _type: "navigation";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  label: null;
+  href: string | null;
+  order: number | null;
+  isExternal: boolean | null;
+  showInHeader: null;
+  showInFooter: null;
+}>;
+
+// Source: ../../packages/sanity-utils/src/groq/portfolio/getProfile.ts
+// Variable: getProfileQuery
+// Query: *[_type == "profile"][0] {    _id,    _type,    _createdAt,    _updatedAt,    _rev,    firstName,    lastName,    headline,    headlineStaticText,    headlineAnimatedWords,    headlineAnimationDuration,    shortBio,    fullBio,    profileImage,    email,    phone,    location,    availability,    socialLinks,    yearsOfExperience,    stats  }
+export type GetProfileQueryResult = {
+  _id: string;
+  _type: "profile";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  firstName: string | null;
+  lastName: string | null;
+  headline: string | null;
+  headlineStaticText: string | null;
+  headlineAnimatedWords: Array<string> | null;
+  headlineAnimationDuration: number | null;
+  shortBio: string | null;
+  fullBio: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }> | null;
+  profileImage: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  } | null;
+  email: string | null;
+  phone: string | null;
+  location: string | null;
+  availability: "available" | "open" | "unavailable" | null;
+  socialLinks: {
+    github?: string;
+    linkedin?: string;
+    twitter?: string;
+    website?: string;
+    medium?: string;
+    devto?: string;
+    youtube?: string;
+    stackoverflow?: string;
+  } | null;
+  yearsOfExperience: number | null;
+  stats: Array<{
+    label?: string;
+    value?: string;
+    _key: string;
+  }> | null;
+} | null;
+
+// Source: ../../packages/sanity-utils/src/groq/portfolio/getProjectBySlug.ts
+// Variable: getProjectBySlugQuery
+// Query: *[_type == "project" && slug.current == $slug][0] {    _id,    _type,    _createdAt,    _updatedAt,    _rev,    title,    slug,    tagline,    coverImage,    gallery,    description,    features,    technologies,    demoUrl,    githubUrl,    category,    status,    startDate,    endDate,    featured,    order  }
+export type GetProjectBySlugQueryResult = {
+  _id: string;
+  _type: "project";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title: string | null;
+  slug: Slug | null;
+  tagline: string | null;
+  coverImage: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  } | null;
+  gallery: null;
+  description: null;
+  features: null;
+  technologies: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "skill";
+  }> | null;
+  demoUrl: null;
+  githubUrl: string | null;
+  category: "ai-ml" | "api-backend" | "browser-extension" | "cli-tool" | "desktop-app" | "devops" | "game" | "mobile-app" | "open-source" | "other" | "web-app" | null;
+  status: null;
+  startDate: null;
+  endDate: null;
+  featured: boolean | null;
+  order: number | null;
+} | null;
+
+// Source: ../../packages/sanity-utils/src/groq/portfolio/getProjects.ts
+// Variable: getProjectsQuery
+// Query: *[_type == "project"] | order(order asc, _createdAt desc) {    _id,    _type,    _createdAt,    _updatedAt,    _rev,    title,    slug,    tagline,    coverImage,    gallery,    description,    features,    technologies,    demoUrl,    githubUrl,    category,    status,    startDate,    endDate,    featured,    order  }
+export type GetProjectsQueryResult = Array<{
+  _id: string;
+  _type: "project";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title: string | null;
+  slug: Slug | null;
+  tagline: string | null;
+  coverImage: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  } | null;
+  gallery: null;
+  description: null;
+  features: null;
+  technologies: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "skill";
+  }> | null;
+  demoUrl: null;
+  githubUrl: string | null;
+  category: "ai-ml" | "api-backend" | "browser-extension" | "cli-tool" | "desktop-app" | "devops" | "game" | "mobile-app" | "open-source" | "other" | "web-app" | null;
+  status: null;
+  startDate: null;
+  endDate: null;
+  featured: boolean | null;
+  order: number | null;
+}>;
+
+// Source: ../../packages/sanity-utils/src/groq/portfolio/getServices.ts
+// Variable: getServicesQuery
+// Query: *[_type == "service"] | order(order asc) {    _id,    _type,    _createdAt,    _updatedAt,    _rev,    title,    slug,    description,    icon,    features,    technologies,    pricing,    deliveryTime,    featured,    order  }
+export type GetServicesQueryResult = Array<{
+  _id: string;
+  _type: "service";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title: string | null;
+  slug: Slug | null;
+  description: null;
+  icon: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  } | null;
+  features: Array<string> | null;
+  technologies: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "skill";
+  }> | null;
+  pricing: {
+    startingPrice?: number;
+    priceType?: "custom" | "hourly" | "monthly" | "project";
+    description?: string;
+  } | null;
+  deliveryTime: null;
+  featured: boolean | null;
+  order: number | null;
+}>;
+
+// Source: ../../packages/sanity-utils/src/groq/portfolio/getSiteSettings.ts
+// Variable: getSiteSettingsQuery
+// Query: *[_type == "siteSettings"][0] {    _id,    _type,    _createdAt,    _updatedAt,    _rev,    siteTitle,    siteDescription,    siteKeywords,    siteLogo,    favicon,    ogImage,    analyticsId,    gtmId,    contactEmail,    socialMedia  }
+export type GetSiteSettingsQueryResult = {
+  _id: string;
+  _type: "siteSettings";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  siteTitle: string | null;
+  siteDescription: string | null;
+  siteKeywords: Array<string> | null;
+  siteLogo: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  } | null;
+  favicon: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  } | null;
+  ogImage: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  } | null;
+  analyticsId: null;
+  gtmId: null;
+  contactEmail: null;
+  socialMedia: null;
+} | null;
+
+// Source: ../../packages/sanity-utils/src/groq/portfolio/getSkills.ts
+// Variable: getSkillsQuery
+// Query: *[_type == "skill"] | order(order asc, name asc) {    _id,    _type,    _createdAt,    _updatedAt,    _rev,    name,    category,    proficiency,    yearsOfExperience,    icon,    description,    order  }
+export type GetSkillsQueryResult = Array<{
+  _id: string;
+  _type: "skill";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name: string | null;
+  category: "ai-ml" | "backend" | "cloud" | "database" | "design" | "devops" | "frontend" | "mobile" | "other" | "soft-skills" | "testing" | "tools" | null;
+  proficiency: "advanced" | "beginner" | "expert" | "intermediate" | null;
+  yearsOfExperience: number | null;
+  icon: null;
+  description: null;
+  order: null;
+}>;
+
+// Source: ../../packages/sanity-utils/src/groq/portfolio/getTestimonials.ts
+// Variable: getTestimonialsQuery
+// Query: *[_type == "testimonial"] | order(order asc, _createdAt desc) {    _id,    _type,    _createdAt,    _updatedAt,    _rev,    name,    position,    company,    companyLogo,    avatar,    testimonial,    rating,    featured,    order,    relationshipType  }
+export type GetTestimonialsQueryResult = Array<{
+  _id: string;
+  _type: "testimonial";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name: string | null;
+  position: string | null;
+  company: string | null;
+  companyLogo: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  } | null;
+  avatar: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  } | null;
+  testimonial: string | null;
+  rating: number | null;
+  featured: boolean | null;
+  order: number | null;
+  relationshipType: null;
+}>;
+
 // Source: ../../packages/sanity-utils/src/groq/post/getPostById.ts
 // Variable: getPostByIdQuery
 // Query: *[_type == "post" && _id == $postId] {    _id,    title,    "slug": slug.current,    body,    publishedAt,    "author": author->,    "subreddit": subreddit->,    image,    isDeleted  }[0]
@@ -1777,6 +2853,18 @@ export type IsEnrolledEnrollmentQueryResult = {
   enrolledAt?: string;
 } | null;
 
+// Source: ../../packages/sanity-utils/src/groq/subreddit/checkSubredditExists.ts
+// Variable: checkSubredditByTitleQuery
+// Query: *[_type == "subreddit" && title == $name][0] {    _id  }
+export type CheckSubredditByTitleQueryResult = {
+  _id: string;
+} | null;
+// Variable: checkSubredditBySlugQuery
+// Query: *[_type == "subreddit" && slug.current == $slug][0] {    _id  }
+export type CheckSubredditBySlugQueryResult = {
+  _id: string;
+} | null;
+
 // Source: ../../packages/sanity-utils/src/groq/subreddit/getPostsForSubreddit.ts
 // Variable: getPostsForSubredditQuery
 // Query: *[_type == "post" && subreddit._ref == $id] {        ...,        "slug": slug.current,        "author": author->,        "subreddit": subreddit->,        "category": category->,        "upvotes": count(*[_type == "vote" && post._ref == ^._id && voteType == "upvote"]),        "downvotes": count(*[_type == "vote" && post._ref == ^._id && voteType == "downvote"]),        "netScore": count(*[_type == "vote" && post._ref == ^._id && voteType == "upvote"]) - count(*[_type == "vote" && post._ref == ^._id && voteType == "downvote"]),        "commentCount": count(*[_type == "comment" && post._ref == ^._id])      } | order(publishedAt desc)
@@ -1987,6 +3075,22 @@ export type SearchSubredditsQueryResult = Array<{
   createdAt: string | null;
 }>;
 
+// Source: ../../packages/sanity-utils/src/groq/user/getUserById.ts
+// Variable: getUserByIdQuery
+// Query: *[_type == "user" && _id == $id][0]
+export type GetUserByIdQueryResult = {
+  _id: string;
+  _type: "user";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  username?: string;
+  email?: string;
+  imageUrl?: string;
+  joinedAt?: string;
+  isReported?: boolean;
+} | null;
+
 // Source: ../../packages/sanity-utils/src/groq/vote/getPostComments.ts
 // Variable: getPostCommentsQuery
 // Query: *[_type == "comment" && post._ref == $postId && !defined(parentComment)] {        ...,      _id,      content,      createdAt,      "author": author->,      "replies": *[_type == "comment" && parentComment._ref == ^._id],      "votes": {        "upvotes": count(*[_type == "vote" && comment._ref == ^._id && voteType == "upvote"]),        "downvotes": count(*[_type == "vote" && comment._ref == ^._id && voteType == "downvote"]),        "netScore": count(*[_type == "vote" && comment._ref == ^._id && voteType == "upvote"]) - count(*[_type == "vote" && comment._ref == ^._id && voteType == "downvote"]),        "voteStatus": *[_type == "vote" && comment._ref == ^._id && user._ref == $userId][0].voteType,      },    } | order(votes.netScore desc, createdAt desc) // votes.netScore desc -> if you want to sort by net score
@@ -2092,6 +3196,21 @@ declare module "@sanity/client" {
     "\n{\n  \"completedLessons\": *[_type == \"lessonCompletion\"\n    && student._ref == $studentId\n    && course._ref == $courseId]{\n      ...,\n      \"lesson\": lesson->{...},\n      \"module\": module->{...}\n    },\n  \"course\": *[_type == \"course\" && _id == $courseId][0]{\n    ...,\n    \"modules\": modules[]->{\n      ...,\n      \"lessons\": lessons[]->{...}\n    }\n  }\n}\n": GetCompletionsQueryResult;
     "\n  *[_type == \"student\" && clerkId == $clerkId][0]{ _id }\n": UncompleteLessonStudentQueryResult;
     "\n  *[_type == \"lessonCompletion\"\n    && student._ref == $studentId\n    && lesson._ref == $lessonId][0]{ _id }\n": UncompleteLessonCompletionQueryResult;
+    "\n  *[_type == \"achievement\"] | order(date desc) {\n    _id,\n    _type,\n    _createdAt,\n    _updatedAt,\n    _rev,\n    title,\n    type,\n    description,\n    date,\n    organization,\n    link,\n    image,\n    featured,\n    tags\n  }\n": GetAchievementsQueryResult;
+    "\n  *[_type == \"blog\" && slug.current == $slug][0] {\n    _id,\n    _type,\n    _createdAt,\n    _updatedAt,\n    _rev,\n    title,\n    slug,\n    excerpt,\n    featuredImage,\n    content,\n    category,\n    tags,\n    author,\n    publishedAt,\n    readingTime,\n    featured,\n    seo\n  }\n": GetBlogPostBySlugQueryResult;
+    "\n  *[_type == \"blog\"] | order(publishedAt desc) {\n    _id,\n    _type,\n    _createdAt,\n    _updatedAt,\n    _rev,\n    title,\n    slug,\n    excerpt,\n    featuredImage,\n    category,\n    tags,\n    author,\n    publishedAt,\n    readingTime,\n    featured\n  }\n": GetBlogPostsQueryResult;
+    "\n  *[_type == \"certification\"] | order(issueDate desc) {\n    _id,\n    _type,\n    _createdAt,\n    _updatedAt,\n    _rev,\n    name,\n    issuer,\n    issueDate,\n    expiryDate,\n    credentialId,\n    credentialUrl,\n    logo,\n    description,\n    skills\n  }\n": GetCertificationsQueryResult;
+    "\n  *[_type == \"contact\"] | order(_createdAt desc) {\n    _id,\n    _type,\n    _createdAt,\n    _updatedAt,\n    _rev,\n    name,\n    email,\n    subject,\n    message,\n    phone,\n    company,\n    status,\n    notes\n  }\n": GetContactsQueryResult;
+    "\n  *[_type == \"education\"] | order(startDate desc) {\n    _id,\n    _type,\n    _createdAt,\n    _updatedAt,\n    _rev,\n    institution,\n    institutionLogo,\n    degree,\n    field,\n    location,\n    startDate,\n    endDate,\n    current,\n    gpa,\n    description,\n    achievements,\n    coursework\n  }\n": GetEducationHistoryQueryResult;
+    "\n  *[_type == \"experience\"] | order(startDate desc) {\n    _id,\n    _type,\n    _createdAt,\n    _updatedAt,\n    _rev,\n    company,\n    companyLogo,\n    position,\n    location,\n    locationType,\n    startDate,\n    endDate,\n    current,\n    description,\n    responsibilities,\n    achievements,\n    technologies\n  }\n": GetExperiencesQueryResult;
+    "\n  *[_type == \"navigation\"] | order(order asc) {\n    _id,\n    _type,\n    _createdAt,\n    _updatedAt,\n    _rev,\n    label,\n    href,\n    order,\n    isExternal,\n    showInHeader,\n    showInFooter\n  }\n": GetNavigationQueryResult;
+    "\n  *[_type == \"profile\"][0] {\n    _id,\n    _type,\n    _createdAt,\n    _updatedAt,\n    _rev,\n    firstName,\n    lastName,\n    headline,\n    headlineStaticText,\n    headlineAnimatedWords,\n    headlineAnimationDuration,\n    shortBio,\n    fullBio,\n    profileImage,\n    email,\n    phone,\n    location,\n    availability,\n    socialLinks,\n    yearsOfExperience,\n    stats\n  }\n": GetProfileQueryResult;
+    "\n  *[_type == \"project\" && slug.current == $slug][0] {\n    _id,\n    _type,\n    _createdAt,\n    _updatedAt,\n    _rev,\n    title,\n    slug,\n    tagline,\n    coverImage,\n    gallery,\n    description,\n    features,\n    technologies,\n    demoUrl,\n    githubUrl,\n    category,\n    status,\n    startDate,\n    endDate,\n    featured,\n    order\n  }\n": GetProjectBySlugQueryResult;
+    "\n  *[_type == \"project\"] | order(order asc, _createdAt desc) {\n    _id,\n    _type,\n    _createdAt,\n    _updatedAt,\n    _rev,\n    title,\n    slug,\n    tagline,\n    coverImage,\n    gallery,\n    description,\n    features,\n    technologies,\n    demoUrl,\n    githubUrl,\n    category,\n    status,\n    startDate,\n    endDate,\n    featured,\n    order\n  }\n": GetProjectsQueryResult;
+    "\n  *[_type == \"service\"] | order(order asc) {\n    _id,\n    _type,\n    _createdAt,\n    _updatedAt,\n    _rev,\n    title,\n    slug,\n    description,\n    icon,\n    features,\n    technologies,\n    pricing,\n    deliveryTime,\n    featured,\n    order\n  }\n": GetServicesQueryResult;
+    "\n  *[_type == \"siteSettings\"][0] {\n    _id,\n    _type,\n    _createdAt,\n    _updatedAt,\n    _rev,\n    siteTitle,\n    siteDescription,\n    siteKeywords,\n    siteLogo,\n    favicon,\n    ogImage,\n    analyticsId,\n    gtmId,\n    contactEmail,\n    socialMedia\n  }\n": GetSiteSettingsQueryResult;
+    "\n  *[_type == \"skill\"] | order(order asc, name asc) {\n    _id,\n    _type,\n    _createdAt,\n    _updatedAt,\n    _rev,\n    name,\n    category,\n    proficiency,\n    yearsOfExperience,\n    icon,\n    description,\n    order\n  }\n": GetSkillsQueryResult;
+    "\n  *[_type == \"testimonial\"] | order(order asc, _createdAt desc) {\n    _id,\n    _type,\n    _createdAt,\n    _updatedAt,\n    _rev,\n    name,\n    position,\n    company,\n    companyLogo,\n    avatar,\n    testimonial,\n    rating,\n    featured,\n    order,\n    relationshipType\n  }\n": GetTestimonialsQueryResult;
     "*[_type == \"post\" && _id == $postId] {\n    _id,\n    title,\n    \"slug\": slug.current,\n    body,\n    publishedAt,\n    \"author\": author->,\n    \"subreddit\": subreddit->,\n    image,\n    isDeleted\n  }[0]": GetPostByIdQueryResult;
     "*[_type == \"post\" && slug.current == $slug] {\n    _id,\n    title,\n    \"slug\": slug.current,\n    body,\n    publishedAt,\n    \"author\": author->{\n      _id,\n      username,\n      email,\n      \"image\": image.asset->url\n    },\n    \"subreddit\": subreddit->{\n      _id,\n      title,\n      \"slug\": slug.current,\n      description\n    },\n    image,\n    isDeleted,\n    \"commentCount\": count(*[_type == \"comment\" && post._ref == ^._id && !isDeleted]),\n    \"upvoteCount\": count(*[_type == \"vote\" && post._ref == ^._id && voteType == \"upvote\"]),\n    \"downvoteCount\": count(*[_type == \"vote\" && post._ref == ^._id && voteType == \"downvote\"])\n  }[0]": GetPostBySlugQueryResult;
     "*[_type == \"post\" && isDeleted != true] {\n    _id,\n    title,\n    \"slug\": slug.current,\n    body,\n    publishedAt,\n    \"author\": author->\n    ,\n    \"subreddit\": subreddit->,\n    image,\n    isDeleted\n  } | order(publishedAt desc)": GetAllPostsQueryResult;
@@ -2099,10 +3218,13 @@ declare module "@sanity/client" {
     "*[_type == \"student\" && clerkId == $clerkId][0]": GetStudentByClerkIdQueryResult;
     "*[_type == \"student\" && clerkId == $clerkId][0]._id": IsEnrolledStudentIdQueryResult;
     "*[_type == \"enrollment\" && student._ref == $studentId && course._ref == $courseId][0]": IsEnrolledEnrollmentQueryResult;
+    "\n  *[_type == \"subreddit\" && title == $name][0] {\n    _id\n  }\n": CheckSubredditByTitleQueryResult;
+    "\n  *[_type == \"subreddit\" && slug.current == $slug][0] {\n    _id\n  }\n": CheckSubredditBySlugQueryResult;
     "\n      *[_type == \"post\" && subreddit._ref == $id] {\n        ...,\n        \"slug\": slug.current,\n        \"author\": author->,\n        \"subreddit\": subreddit->,\n        \"category\": category->,\n        \"upvotes\": count(*[_type == \"vote\" && post._ref == ^._id && voteType == \"upvote\"]),\n        \"downvotes\": count(*[_type == \"vote\" && post._ref == ^._id && voteType == \"downvote\"]),\n        \"netScore\": count(*[_type == \"vote\" && post._ref == ^._id && voteType == \"upvote\"]) - count(*[_type == \"vote\" && post._ref == ^._id && voteType == \"downvote\"]),\n        \"commentCount\": count(*[_type == \"comment\" && post._ref == ^._id])\n      } | order(publishedAt desc) \n    ": GetPostsForSubredditQueryResult;
     "*[_type == \"subreddit\" && slug.current == $slug][0] {\n      ...,\n      \"slug\": slug.current,\n      \"moderator\": moderator->,\n    }": GetSubredditBySlugQueryResult;
     "*[_type == \"subreddit\"] {\n        ...,\n        \"slug\": slug.current,\n        \"moderator\": moderator->,\n      } | order(createdAt desc)": GetSubredditsQueryResult;
     "*[_type == \"subreddit\" && title match $searchTerm + \"*\"] {\n    _id,\n    title,\n    \"slug\": slug.current,\n    description,\n    image,\n    \"moderator\": moderator->,\n    createdAt\n  } | order(createdAt desc)": SearchSubredditsQueryResult;
+    "\n  *[_type == \"user\" && _id == $id][0]\n": GetUserByIdQueryResult;
     "\n    *[_type == \"comment\" && post._ref == $postId && !defined(parentComment)] {\n        ...,\n      _id,\n      content,\n      createdAt,\n      \"author\": author->,\n      \"replies\": *[_type == \"comment\" && parentComment._ref == ^._id],\n      \"votes\": {\n        \"upvotes\": count(*[_type == \"vote\" && comment._ref == ^._id && voteType == \"upvote\"]),\n        \"downvotes\": count(*[_type == \"vote\" && comment._ref == ^._id && voteType == \"downvote\"]),\n        \"netScore\": count(*[_type == \"vote\" && comment._ref == ^._id && voteType == \"upvote\"]) - count(*[_type == \"vote\" && comment._ref == ^._id && voteType == \"downvote\"]),\n        \"voteStatus\": *[_type == \"vote\" && comment._ref == ^._id && user._ref == $userId][0].voteType,\n      },\n    } | order(votes.netScore desc, createdAt desc) // votes.netScore desc -> if you want to sort by net score\n  ": GetPostCommentsQueryResult;
     "\n      {\n        \"upvotes\": count(*[_type == \"vote\" && post._ref == $postId && voteType == \"upvote\"]),\n\n        \"downvotes\": count(*[_type == \"vote\" && post._ref == $postId && voteType == \"downvote\"]),\n        \n        \"netScore\": count(*[_type == \"vote\" && post._ref == $postId && voteType == \"upvote\"]) - count(*[_type == \"vote\" && post._ref == $postId && voteType == \"downvote\"])\n      }\n    ": GetPostVotesQueryResult;
     "*[_type == \"vote\" && post._ref == $postId && user._ref == $userId][0].voteType": GetUserPostVoteStatusQueryResult;

@@ -17,6 +17,10 @@ export * from "./student/getEnrolledCourses";
 export * from "./student/getStudentByClerkId";
 export * from "./student/isEnrolledInCourse";
 
+// Portfolio queries - exported for typegen
+// These use live fetch so they're safe for typegen
+export * from "./portfolio";
+
 // Reddit queries are NOT exported here because they use live-enabled sanityFetch
 // which causes "defineLive can only be used in React Server Components" errors
 // during Studio typegen (which runs in Node.js, not React).

@@ -1,13 +1,13 @@
 "use client";
 
 import { CheckCircle, Loader2, XCircle } from "lucide-react";
-import { Button } from "@workspace/ui/components/button";
+import { Button } from "@workspace/ui";
 import { useEffect, useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { completeLessonAction } from "@/app/actions/completeLessonAction";
 import { uncompleteLessonAction } from "@/app/actions/uncompleteLessonAction";
 import { getLessonCompletionStatusAction } from "@/app/actions/getLessonCompletionStatusAction";
-import { cn } from "@/lib/utils";
+import { cn } from "@workspace/ui/lib/utils";
 
 interface LessonCompleteButtonProps {
   lessonId: string;

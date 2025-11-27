@@ -11,20 +11,33 @@ export * from "./lib/baseUrl";
 export * from "./lib/courseProgress";
 
 // GROQ query helpers
-export * from "./groq/course/getCourses";
-export * from "./groq/course/getCourseBySlug";
-export * from "./groq/course/getCourseById";
-export * from "./groq/course/searchCourses";
+// NOTE: LMS queries use live-enabled sanityFetch and should NOT be exported
+// from the main entry to avoid loading defineLive in non-React contexts (Studio).
+// Import them directly via "@workspace/sanity-utils/groq/course/*" subpaths.
+//
+// Commented out to prevent Studio loading issues:
+// export * from "./groq/course/getCourses";
+// export * from "./groq/course/getCourseBySlug";
+// export * from "./groq/course/getCourseById";
+// export * from "./groq/course/searchCourses";
 
-export * from "./groq/lessons/getLessonById";
-export * from "./groq/lessons/getLessonCompletions";
-export * from "./groq/lessons/getLessonCompletionStatus";
-export * from "./groq/lessons/uncompleteLessonById";
-export * from "./groq/lessons/completeLessonById";
+// export * from "./groq/lessons/getLessonById";
+// export * from "./groq/lessons/getLessonCompletions";
+// export * from "./groq/lessons/getLessonCompletionStatus";
+// export * from "./groq/lessons/uncompleteLessonById";
+// export * from "./groq/lessons/completeLessonById";
 
-export * from "./groq/student/getEnrolledCourses";
-export * from "./groq/student/getStudentByClerkId";
-export * from "./groq/student/isEnrolledInCourse";
+// export * from "./groq/student/getEnrolledCourses";
+// export * from "./groq/student/getStudentByClerkId";
+// export * from "./groq/student/isEnrolledInCourse";
+
+// Portfolio GROQ query helpers
+// NOTE: Portfolio queries use live-enabled sanityFetch and should NOT be exported
+// from the main entry to avoid loading defineLive in non-React contexts (Studio typegen).
+// Import them directly via "@workspace/sanity-utils/groq/portfolio" subpath.
+//
+// Commented out to prevent Studio typegen failures and client bundling issues:
+// export * from "./groq/portfolio";
 
 // Reddit GROQ query helpers
 // NOTE: Reddit queries use live-enabled sanityFetch and should NOT be exported

@@ -1,6 +1,6 @@
 import { getCourseByIdQuery } from "@workspace/sanity-utils/groq/course/getCourseById";
 import { redirect } from "next/navigation";
-import { sanityFetch } from "@workspace/sanity-utils/live";
+import { sanityFetch } from "@workspace/sanity-utils/live/live.server";
 
 interface CoursePageProps {
   params: Promise<{
@@ -12,6 +12,22 @@ export default async function CoursePage({ params }: Readonly<CoursePageProps>) 
   const { courseId } = await params;
   const { data: course } = await sanityFetch({ query: getCourseByIdQuery, params: { id: courseId } });
 
+  console.log("📚 Course Page Debug:", {
+    courseId,
+    courseFound: !!course,
+    courseTitle: course?.title,
+    modulesCount: course?.modules?.length,
+    firstModule: course?.modules?.[0] ? {
+      id: course.modules[0]._id,
+      lessonsCount: course.modules[0].lessons?.length,
+      firstLesson: course.modules[0].lessons?.[0] ? {
+        _id: course.modules[0].lessons[0]._id,
+        title: course.modules[0].lessons[0].title,
+        slug: course.modules[0].lessons[0].slug,
+      } : null,
+    } : null,
+  });
+
   if (!course) {
     return redirect("/");
   }
@@ -19,6 +35,11 @@ export default async function CoursePage({ params }: Readonly<CoursePageProps>) 
   // Redirect to the first lesson of the first module if available
   const firstLesson = course.modules?.[0]?.lessons?.[0];
   if (firstLesson?._id) {
+    console.log("🔀 Redirecting to lesson:", {
+      courseId,
+      lessonId: firstLesson._id,
+      url: `/dashboard/courses/${courseId}/lessons/${firstLesson._id}`,
+    });
     return redirect(
       `/dashboard/courses/${courseId}/lessons/${firstLesson._id}`
     );

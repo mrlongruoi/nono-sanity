@@ -4,8 +4,7 @@ import { useUser } from "@clerk/nextjs";
 import { useState, useTransition } from "react";
 
 import { createComment } from "@/action/createComment";
-import { Input } from "@workspace/ui/components/input";
-import { Button } from "@workspace/ui/components/button";
+import { Input, Button } from "@workspace/ui";
 
 function CommentInput({
   postId,

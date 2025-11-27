@@ -9,12 +9,14 @@
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "check-types": "tsc --noEmit"
   },
   "dependencies": {
     "@ai-sdk/google": "^2.0.43",
     "@clerk/agent-toolkit": "^0.2.5",
     "@clerk/nextjs": "^6.35.4",
+    "@sanity/preview-url-secret": "^3.0.0",
     "@workspace/sanity-types": "workspace:*",
     "@workspace/sanity-utils": "workspace:*",
     "@workspace/ui": "workspace:*",

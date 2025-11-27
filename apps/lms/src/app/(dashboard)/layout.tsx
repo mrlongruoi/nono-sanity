@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/theme-provider";
-import { SanityLive } from "@workspace/sanity-utils/live";
+import { SanityLive } from "@workspace/sanity-utils/live/live.server";
 import { ClerkProvider } from "@clerk/nextjs";
 import { SidebarProvider } from "@/components/providers/sidebar-provider";
 

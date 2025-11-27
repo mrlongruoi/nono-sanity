@@ -1,21 +1,14 @@
-import { defineLive } from "next-sanity/live";
-import { getServerClient } from "../clients/client.server";
+/**
+ * DEPRECATED: Use live.server.ts instead
+ * 
+ * This file is kept for backward compatibility but should not be used.
+ * Import from:
+ * - "@workspace/sanity-utils/live/server" for server components
+ * - "@workspace/sanity-utils/live" for SanityLive component only
+ * 
+ * @deprecated Use live.server.ts
+ */
 
-// Live-enabled Sanity helpers for Next.js app-router apps with visual editing support.
-// This wraps the existing server client with next-sanity/live so that
-// queries can be fetched and subscribed to in React components.
-// 
-// Token strategy:
-// - serverToken: Use READWRITE for mutations (server-only)
-// - browserToken: Use read-only TOKEN for live updates (public, safe)
-const liveClient = getServerClient();
-
-export const { sanityFetch, SanityLive } = defineLive({
-  client: liveClient,
-  serverToken: process.env.SANITY_API_READWRITE_TOKEN || process.env.SANITY_API_TOKEN,
-  // Use regular token for browser - it's already read-only by default
-  browserToken: process.env.NEXT_PUBLIC_SANITY_API_TOKEN,
-  fetchOptions: {
-    revalidate: 0,
-  },
-});
+// Re-export from server implementation
+// This ensures existing imports still work but the logic lives in server-only file
+export { sanityFetch, SanityLive } from "./live.server";

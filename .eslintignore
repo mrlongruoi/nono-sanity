@@ -1,0 +1,21 @@
+# Build outputs
+.next/
+.turbo/
+dist/
+build/
+out/
+
+# Dependencies
+node_modules/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Generated files
+*.log
+.cache/

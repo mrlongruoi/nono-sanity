@@ -7,14 +7,14 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@workspace/ui/components/dialog";
+  Input,
+  Textarea,
+  Button,
+} from "@workspace/ui";
 import { useUser } from "@clerk/nextjs";
 import { ImageIcon, Plus } from "lucide-react";
 import { useRef, useState, useTransition } from "react";
-import { Input } from "@workspace/ui/components/input";
-import { Textarea } from "@workspace/ui/components/textarea";
 import Image from "next/image";
-import { Button } from "@workspace/ui/components/button";
 import { createCommunity } from "@/action/createCommunity";
 import { useRouter } from "next/navigation";
 
