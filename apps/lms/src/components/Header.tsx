@@ -5,7 +5,7 @@ import Link from "next/link";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import { SearchInput } from "./SearchInput";
 import DarkModeToggle from "./DarkModeToggle";
-import { Button } from "@workspace/ui/components/button";
+import { Button } from "@workspace/ui";
 
 export default function Header() {
     return (

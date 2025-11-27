@@ -1,6 +1,6 @@
 "use client";
 
-import { Progress } from "@workspace/ui/components/progress";
+import { Progress } from "@workspace/ui";
 import { cn } from "@workspace/ui/lib/utils";
 
 interface CourseProgressProps {

@@ -65,8 +65,10 @@
     "typescript": "^5.9.3"
   },
   "exports": {
+    ".": "./src/index.ts",
     "./globals.css": "./src/styles/globals.css",
     "./postcss.config": "./postcss.config.mjs",
+    "./providers": "./src/providers.tsx",
     "./lib/*": "./src/lib/*.ts",
     "./components/*": "./src/components/*",
     "./hooks/*": "./src/hooks/*"

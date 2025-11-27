@@ -60,7 +60,12 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^6.35.4",
+    "@sanity/client": "^7.13.0",
     "@sanity/image-url": "^1.2.0",
+    "@sanity/preview-url-secret": "^3.0.0",
+    "groq": "^4.19.0",
+    "next-sanity": "^11.6.8",
+    "sanity": "^4.19.0",
     "server-only": "^0.0.1"
   }
 }

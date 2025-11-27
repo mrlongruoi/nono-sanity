@@ -5,7 +5,7 @@ import "@workspace/ui/globals.css"
 import { DisableDraftMode } from "@/components/DisableDraftMode"
 import { draftMode } from "next/headers";
 import { SanityLive } from "@workspace/sanity-utils/live";
-import { Providers } from "@/components/providers";
+import { Providers } from "@workspace/ui/providers";
 
 const fontSans = Geist({
   subsets: ["latin"],

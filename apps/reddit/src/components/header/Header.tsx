@@ -1,12 +1,11 @@
 "use client";
 
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
-import { Button } from "@workspace/ui/components/button";
+import { Button, useSidebar } from "@workspace/ui";
 import ReddishLogo from "@/images/Reddish-Full.png";
 import ReddishLogoOnly from "@/images/Reddish-Logo-Only.png";
 import { ChevronLeftIcon, MenuIcon } from "lucide-react";
 import Image from "next/image";
-import { useSidebar } from "@workspace/ui/components/sidebar";
 import CreatePost from "../post/CreatePost";
 
 function Header() {

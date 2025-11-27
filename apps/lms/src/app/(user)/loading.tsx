@@ -1,5 +1,4 @@
-import { Loader } from "@workspace/ui/components/loader";
-import { Skeleton } from "@workspace/ui/components/skeleton";
+import { Loader, Skeleton } from "@workspace/ui";
 
 function Loading() {
   return (

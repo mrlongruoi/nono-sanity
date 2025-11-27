@@ -1,7 +1,7 @@
 "use client";
 
 import { useUser } from "@clerk/nextjs";
-import { Button } from "@workspace/ui/components/button";
+import { Button } from "@workspace/ui";
 import { Plus } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 

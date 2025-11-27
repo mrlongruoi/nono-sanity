@@ -2,7 +2,7 @@ import { searchSubreddits } from "@workspace/sanity-utils/groq/subreddit/searchS
 import type { SearchSubredditsQueryResult } from "@workspace/sanity-types/generated";
 import Link from "next/link";
 import { urlFor } from "@/sanity/image";
-import { Avatar, AvatarFallback, AvatarImage } from "@workspace/ui/components/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@workspace/ui";
 
 // Force dynamic rendering
 export const dynamic = "force-dynamic";

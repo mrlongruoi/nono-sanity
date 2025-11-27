@@ -1,15 +1,11 @@
 {
-  "extends": "@workspace/typescript-config/nextjs.json",
+  "extends": ["@workspace/typescript-config/nextjs.json", "../../tsconfig.base.json"],
   "compilerOptions": {
     "baseUrl": ".",
+    "lib": ["ES2021", "DOM", "DOM.Iterable"],
     // "ignoreDeprecations": "6.0",
     "paths": {
-      "@/*": ["./src/*"],
-      "@workspace/ui/*": ["../../packages/ui/src/*"],
-      "@workspace/sanity-utils": ["../../packages/sanity-utils/index.ts"],
-      "@workspace/sanity-utils/*": ["../../packages/sanity-utils/src/*"],
-      "@workspace/sanity-types": ["../../packages/sanity-types/index.ts"],
-      "@workspace/sanity-types/*": ["../../packages/sanity-types/src/*"]
+      "@/*": ["./src/*"]
     },
     "skipLibCheck": true,
     "noEmit": true,

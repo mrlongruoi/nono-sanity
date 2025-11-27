@@ -1,11 +1,11 @@
 import { Search } from "lucide-react";
 
-import { Label } from "@workspace/ui/components/label";
+import { Label } from "@workspace/ui";
 import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarInput,
-} from "@workspace/ui/components/sidebar";
+} from "@workspace/ui";
 import Form from "next/form";
 
 export function SearchForm() {

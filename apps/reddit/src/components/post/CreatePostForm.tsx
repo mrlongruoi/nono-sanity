@@ -2,12 +2,12 @@
 
 import * as React from "react";
 import { ImageIcon } from "lucide-react";
-import { Input } from "@workspace/ui/components/input";
-import { Button } from "@workspace/ui/components/button";
+import { Input } from "@workspace/ui";
+import { Button } from "@workspace/ui";
 import { useState, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
-import { Textarea } from "@workspace/ui/components/textarea";
+import { Textarea } from "@workspace/ui";
 import { createPost } from "@/action/createPost";
 
 function CreatePostForm() {
