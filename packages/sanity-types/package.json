@@ -15,7 +15,9 @@
     }
   },
   "scripts": {
-    "build": "echo 'No build needed - using source files'"
+    "build": "echo 'No build needed - using source files'",
+    "check-types": "tsc --noEmit",
+    "lint": "echo 'No lint configured'"
   },
   "dependencies": {
     "@sanity/client": "^7.13.0"

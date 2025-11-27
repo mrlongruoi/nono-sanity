@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "check-types": "tsc --noEmit"
   },
   "dependencies": {
     "@clerk/nextjs": "^6.35.4",
@@ -19,6 +20,7 @@
     "@workspace/sanity-utils": "workspace:*",
     "@workspace/ui": "workspace:*",
     "clsx": "^2.1.1",
+    "groq": "^4.19.0",
     "lucide-react": "^0.475.0",
     "next": "^16.0.5",
     "next-sanity": "^11.6.8",

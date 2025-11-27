@@ -54,5 +54,8 @@ export * from "./components/toggle-group";
 export * from "./components/toggle";
 export * from "./components/tooltip";
 
+// Export providers
+export { Providers } from "./providers";
+
 // Export utilities
 export * from "./lib/utils";

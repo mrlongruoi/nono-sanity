@@ -53,7 +53,7 @@ export default defineType({
       return {
         title,
         media: media ? (
-          <image src={media} alt={`${title}'s avatar`} width={40} height={40} />
+          <img src={media} alt={`${title}'s avatar`} width={40} height={40} />
         ) : (
           <UserIcon />
         ),

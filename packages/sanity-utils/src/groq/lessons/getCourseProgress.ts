@@ -1,5 +1,5 @@
 import { defineQuery } from "groq";
-import { sanityFetch } from "../../helpers/sanityFetch";
+import { sanityFetch } from "../../live/live";
 import { getStudentByClerkId } from "../student/getStudentByClerkId";
 import { calculateCourseProgress } from "../../lib/courseProgress";
 import { Module } from "@workspace/sanity-types";
@@ -74,7 +74,10 @@ export const courseProgressQuery = defineQuery(`
 }
 `);
 
-export async function getCourseProgress(clerkId: string, courseId: string) {
+export async function getCourseProgress(clerkId: string, courseId: string): Promise<{
+  completedLessons: any[];
+  courseProgress: number;
+}> {
   const s = await getStudentByClerkId(clerkId);
   if (!s?.data?._id) throw new Error("Student not found");
 
@@ -83,16 +86,21 @@ export async function getCourseProgress(clerkId: string, courseId: string) {
     course?: { modules?: Module[] } | null;
   };
 
-  const result = await sanityFetch<CourseProgressResult>(courseProgressQuery, {
-    studentId: s.data._id,
-    courseId,
+  const response = await sanityFetch({ 
+    query: courseProgressQuery, 
+    params: {
+      studentId: s.data._id,
+      courseId,
+    }
   });
+  
+  const result = response.data;
 
   const { completedLessons = [], course } = result || ({} as CourseProgressResult);
 
   const courseProgress = calculateCourseProgress(
-    (course?.modules as Module[]) || null,
-    completedLessons
+    (course?.modules as any) || null,
+    completedLessons as any
   );
 
   return {

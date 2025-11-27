@@ -1,6 +1,5 @@
 import { defineQuery } from "groq";
-import { sanityFetch } from "../../helpers/sanityFetch";
-import type { GetCoursesQueryResult } from "@workspace/sanity-types";
+import { sanityFetch } from "../../live/live";
 
 
 export const getCoursesQuery = defineQuery(`
@@ -33,5 +32,6 @@ export const getCoursesQuery = defineQuery(`
 `);
 
 export async function getCourses() {
-  return await sanityFetch<GetCoursesQueryResult>(getCoursesQuery);
+  const result = await sanityFetch({ query: getCoursesQuery, params: {} });
+  return result.data;
 }

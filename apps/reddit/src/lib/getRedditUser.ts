@@ -1,7 +1,6 @@
-import { sanityFetch } from "@workspace/sanity-utils/server";
-import { defineQuery } from "groq";
+import { sanityFetch, addUser } from "@workspace/sanity-utils/server";
 import { currentUser } from "@clerk/nextjs/server";
-import { addUser } from "@workspace/sanity-utils/server";
+import { getUserById } from "@workspace/sanity-utils/groq/user/getUserById";
 
 interface UserResult {
   _id: string;
@@ -35,24 +34,17 @@ export async function getUser(): Promise<UserResult | { error: string }> {
     console.log(`Found Clerk user: ${loggedInUser.id}`);
 
     // Check if user exists in the database first
-    const getExistingUserQuery = defineQuery(
-      `*[_type == "user" && _id == $id][0]`
-    );
-
     console.log("Checking if user exists in Sanity database");
-    const existingUser = await sanityFetch({
-      query: getExistingUserQuery,
-      params: { id: loggedInUser.id },
-    }) as { data: any };
+    const existingUser = await getUserById(loggedInUser.id);
 
     // If user exists, return the user data
-    if (existingUser.data?._id) {
-      console.log(`User found in database with ID: ${existingUser.data._id}`);
+    if (existingUser?._id) {
+      console.log(`User found in database with ID: ${existingUser._id}`);
       const user = {
-        _id: existingUser.data._id,
-        username: existingUser.data.username!,
-        imageUrl: existingUser.data.imageUrl!,
-        email: existingUser.data.email!,
+        _id: existingUser._id,
+        username: existingUser.username!,
+        imageUrl: existingUser.imageUrl!,
+        email: existingUser.email!,
       };
 
       return user;

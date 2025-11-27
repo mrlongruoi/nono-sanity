@@ -1,5 +1,5 @@
 import { defineQuery } from "groq";
-import { sanityFetch } from "../../helpers/sanityFetch";
+import { sanityFetch } from "../../live/live";
 
 
 export async function getStudentByClerkId(clerkId: string) {
@@ -7,7 +7,8 @@ export async function getStudentByClerkId(clerkId: string) {
     `*[_type == "student" && clerkId == $clerkId][0]`
   );
 
-  const student = await sanityFetch<any>(getStudentByClerkIdQuery, { clerkId });
+  const result = await sanityFetch({ query: getStudentByClerkIdQuery, params: { clerkId } });
+  const student = result.data;
 
   // Wrap in data property to match expected structure in checkCourseAccess
   return student ? { data: student } : null;

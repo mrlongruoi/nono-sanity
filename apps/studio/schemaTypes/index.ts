@@ -12,6 +12,7 @@ import postType from "./reddit/postType";
 import subredditType from "./reddit/subredditType";
 import userType from "./reddit/userType";
 import voteType from "./reddit/voteType";
+import { schema as portfolioSchema } from "./portfolio";
 
 
 export const schemaTypes = [
@@ -29,4 +30,5 @@ export const schemaTypes = [
     subredditType,
     userType,
     voteType,
+    ...portfolioSchema.types,
 ]

@@ -4,7 +4,7 @@ import { adminClient, uploadImageToSanity, sanityFetch } from "@workspace/sanity
 import { getUser } from "@/lib/getRedditUser";
 import type { Subreddit } from "@workspace/sanity-types/generated";
 import type { ImageUploadData } from "@workspace/sanity-types";
-import { defineQuery } from "groq";
+import { checkSubredditByTitle, checkSubredditBySlug } from "@workspace/sanity-utils/groq/subreddit/checkSubredditExists";
 
 export async function createCommunity(
   name: string,
@@ -24,36 +24,18 @@ export async function createCommunity(
     console.log(`Creating subreddit: ${name} with moderator: ${user._id}`);
 
     // Check if subreddit with this name already exists
-    const checkExistingQuery = defineQuery(`
-      *[_type == "subreddit" && title == $name][0] {
-        _id
-      }
-    `);
+    const existingSubreddit = await checkSubredditByTitle(name);
 
-    const existingSubreddit = await sanityFetch({
-      query: checkExistingQuery,
-      params: { name },
-    });
-
-    if (existingSubreddit.data) {
+    if (existingSubreddit) {
       console.log(`Subreddit "${name}" already exists`);
       return { error: "A subreddit with this name already exists" };
     }
 
     // Check if slug already exists if custom slug is provided
     const customSlug = slug || name.toLowerCase().replaceAll(/\s+/g, "-");
-    const checkSlugQuery = defineQuery(`
-      *[_type == "subreddit" && slug.current == $slug][0] {
-        _id
-      }
-    `);
+    const existingSlug = await checkSubredditBySlug(customSlug);
 
-    const existingSlug = await sanityFetch({
-      query: checkSlugQuery,
-      params: { slug: customSlug },
-    });
-
-    if (existingSlug.data) {
+    if (existingSlug) {
       console.log(`Subreddit with slug "${customSlug}" already exists`);
       return { error: "A subreddit with this URL already exists" };
     }

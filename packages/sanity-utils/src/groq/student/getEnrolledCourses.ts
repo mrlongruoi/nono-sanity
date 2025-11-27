@@ -1,5 +1,5 @@
 import { defineQuery } from "groq";
-import { sanityFetch } from "../../helpers/sanityFetch";
+import { sanityFetch } from "../../live/live";
 import type { GetEnrolledCoursesQueryResult } from "@workspace/sanity-types";
 
 type EnrolledCourse = NonNullable<GetEnrolledCoursesQueryResult>["enrolledCourses"][number];
@@ -47,7 +47,8 @@ export async function getEnrolledCourses(clerkId: string): Promise<EnrolledCours
     }
   `);
 
-  const result = await sanityFetch<GetEnrolledCoursesQueryResult>(getEnrolledCoursesQuery, { clerkId });
+  const response = await sanityFetch({ query: getEnrolledCoursesQuery, params: { clerkId } });
+  const result = response.data;
 
   return result?.enrolledCourses || [];
 }

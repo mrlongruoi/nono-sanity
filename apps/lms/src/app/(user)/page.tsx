@@ -1,6 +1,6 @@
 import Hero from "@/components/Hero";
 import { CourseCard } from "@/components/CourseCard";
-import { getCourses } from "@workspace/sanity-utils";
+import { getCourses } from "@workspace/sanity-utils/groq/course/getCourses";
 
 
 export const dynamic = "force-static";

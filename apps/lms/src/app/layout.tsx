@@ -4,7 +4,7 @@ import { VisualEditing } from "next-sanity/visual-editing";
 import "@workspace/ui/globals.css"
 import { DisableDraftMode } from "@/components/DisableDraftMode"
 import { draftMode } from "next/headers";
-import { SanityLive } from "@workspace/sanity-utils/live";
+import { SanityLive } from "@workspace/sanity-utils/live/live.server";
 import { Providers } from "@workspace/ui/providers";
 
 const fontSans = Geist({
@@ -34,14 +34,19 @@ export default async function RootLayout({
       <body
         className={`${fontSans.variable} ${fontMono.variable} font-sans antialiased`}
       >
-        {/* VisualEditing must always be rendered for Presentation Tool connection */}
-        <VisualEditing />
-
-        {isDraftMode && <DisableDraftMode />}
-
         <Providers>
-          <SanityLive />
           {children}
+          
+          {/* Live content API - always rendered */}
+          <SanityLive />
+          
+          {/* Visual editing overlay - only in draft mode */}
+          {isDraftMode && (
+            <>
+              <VisualEditing />
+              <DisableDraftMode />
+            </>
+          )}
         </Providers>
       </body>
     </html>

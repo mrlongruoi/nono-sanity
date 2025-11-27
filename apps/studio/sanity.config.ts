@@ -9,6 +9,7 @@ const apiVersion = process.env.SANITY_API_VERSION || '2024-11-24'
 
 const lmsUrl = process.env.SANITY_STUDIO_PREVIEW_LMS_URL || 'http://localhost:3000'
 const redditUrl = process.env.SANITY_STUDIO_PREVIEW_REDDIT_URL || 'http://localhost:3001'
+const portfolioUrl = process.env.SANITY_STUDIO_PREVIEW_PORTFOLIO_URL || 'http://localhost:3002'
 
 export default defineConfig({
   name: 'default',
@@ -24,7 +25,7 @@ export default defineConfig({
     visionTool({defaultApiVersion: apiVersion}),
     presentationTool({
       previewUrl: {
-        initial: lmsUrl,
+        initial: portfolioUrl,
         previewMode: {
           enable: '/api/draft-mode/enable',
         },
@@ -32,12 +33,15 @@ export default defineConfig({
       allowOrigins: [
         lmsUrl,
         redditUrl,
+        portfolioUrl,
         'http://localhost:3000',
         'http://localhost:3001',
+        'http://localhost:3002',
         'http://localhost:3333',
       ],
       resolve: {
         mainDocuments: defineDocuments([
+          // LMS documents
           {
             route: '/courses/:slug',
             filter: `_type == "course" && slug.current == $slug`,
@@ -46,6 +50,7 @@ export default defineConfig({
             route: '/lessons/:slug',
             filter: `_type == "lesson" && slug.current == $slug`,
           },
+          // Reddit documents
           {
             route: '/post/:slug',
             filter: `_type == "post" && slug.current == $slug`,
@@ -53,6 +58,19 @@ export default defineConfig({
           {
             route: '/community/:slug',
             filter: `_type == "subreddit" && slug.current == $slug`,
+          },
+          // Portfolio documents
+          {
+            route: '/projects/:slug',
+            filter: `_type == "project" && slug.current == $slug`,
+          },
+          {
+            route: '/blog/:slug',
+            filter: `_type == "blog" && slug.current == $slug`,
+          },
+          {
+            route: '/',
+            filter: `_type == "profile"`,
           },
         ]),
         locations: {
@@ -112,6 +130,48 @@ export default defineConfig({
               ],
             }),
           }),
+          profile: defineLocations({
+            select: {
+              firstName: 'firstName',
+              lastName: 'lastName',
+            },
+            resolve: (doc) => ({
+              locations: [
+                {
+                  title: `${doc?.firstName || ''} ${doc?.lastName || 'Profile'}`,
+                  href: portfolioUrl,
+                },
+              ],
+            }),
+          }),
+          project: defineLocations({
+            select: {
+              title: 'title',
+              slug: 'slug.current',
+            },
+            resolve: (doc) => ({
+              locations: [
+                {
+                  title: doc?.title || 'Untitled',
+                  href: `${portfolioUrl}/projects/${doc?.slug}`,
+                },
+              ],
+            }),
+          }),
+          blog: defineLocations({
+            select: {
+              title: 'title',
+              slug: 'slug.current',
+            },
+            resolve: (doc) => ({
+              locations: [
+                {
+                  title: doc?.title || 'Untitled',
+                  href: `${portfolioUrl}/blog/${doc?.slug}`,
+                },
+              ],
+            }),
+          }),
         },
       },
     }),
@@ -138,6 +198,7 @@ export default defineConfig({
       '../../../packages/sanity-utils/src/groq/course',
       '../../../packages/sanity-utils/src/groq/lessons',
       '../../../packages/sanity-utils/src/groq/student',
+      '../../../packages/sanity-utils/src/groq/portfolio',
       // '../../../packages/sanity-utils/src/groq/comment',
       // '../../../packages/sanity-utils/src/groq/post',
       // '../../../packages/sanity-utils/src/groq/subreddit',

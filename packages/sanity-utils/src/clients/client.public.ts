@@ -28,3 +28,7 @@ export const publicClient = createClient({
   apiVersion: "2024-11-24",
   useCdn: true,
 });
+
+// Alias for convenience
+export { publicClient as client };
+export default publicClient;

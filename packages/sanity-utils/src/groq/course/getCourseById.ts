@@ -1,5 +1,5 @@
 import { defineQuery } from "groq";
-import { sanityFetch } from "../../helpers/sanityFetch";
+import { sanityFetch } from "../../live/live";
 import type { GetCourseByIdQueryResult } from "@workspace/sanity-types/generated";
 
 export const getCourseByIdQuery = defineQuery(`
@@ -62,5 +62,6 @@ export const getCourseByIdQuery = defineQuery(`
 export async function getCourseById(
   id: string
 ): Promise<GetCourseByIdQueryResult | null> {
-  return await sanityFetch(getCourseByIdQuery, { id });
+  const result = await sanityFetch({ query: getCourseByIdQuery, params: { id } });
+  return result.data;
 }

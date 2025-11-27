@@ -1,5 +1,5 @@
 import { defineQuery } from "groq";
-import { sanityFetch } from "../../helpers/sanityFetch";
+import { sanityFetch } from "../../live/live";
 
 // Typed shapes for the lesson completion projection
 export interface ModuleRefSlug {
@@ -57,11 +57,19 @@ export const getCompletionsQuery = defineQuery(`
 }
 `);
 
-export async function getLessonCompletions(studentId: string, courseId: string) {
-  const result = await sanityFetch<CompletionResult>(getCompletionsQuery, {
-    studentId,
-    courseId,
+export async function getLessonCompletions(studentId: string, courseId: string): Promise<{
+  completedLessons: any[];
+  course: any;
+}> {
+  const response = await sanityFetch({ 
+    query: getCompletionsQuery, 
+    params: {
+      studentId,
+      courseId,
+    }
   });
+  
+  const result = response.data;
 
   // Ensure we always return a consistent shape
   const completedLessons = result?.completedLessons || [];

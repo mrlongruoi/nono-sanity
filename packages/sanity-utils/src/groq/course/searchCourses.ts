@@ -1,6 +1,5 @@
 import { defineQuery } from "groq";
-import { sanityFetch } from "../../helpers/sanityFetch";
-import type { SearchCoursesQueryResult } from "@workspace/sanity-types";
+import { sanityFetch } from "../../live/live";
 
 
 export const searchCoursesQuery = defineQuery(`
@@ -36,8 +35,10 @@ export const searchCoursesQuery = defineQuery(`
   }
 `);
 
-export async function searchCourses(term: string): Promise<SearchCoursesQueryResult> {
-  return await sanityFetch(searchCoursesQuery, {
-    wildcard: `${term}*`,
+export async function searchCourses(term: string) {
+  const result = await sanityFetch({ 
+    query: searchCoursesQuery, 
+    params: { wildcard: `${term}*` }
   });
+  return result.data;
 }

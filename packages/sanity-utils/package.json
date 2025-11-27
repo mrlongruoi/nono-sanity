@@ -20,6 +20,22 @@
       "import": "./src/server.ts",
       "default": "./src/server.ts"
     },
+    "./live": {
+      "types": "./src/live/index.tsx",
+      "import": "./src/live/index.tsx",
+      "default": "./src/live/index.tsx"
+    },
+    "./live/live.server": {
+      "react-server": "./src/live/live.server.ts",
+      "types": "./src/live/live.server.ts",
+      "import": "./src/live/live.server.ts",
+      "default": "./src/live/live.server.ts"
+    },
+    "./image": {
+      "types": "./src/helpers/urlFor.ts",
+      "import": "./src/helpers/urlFor.ts",
+      "default": "./src/helpers/urlFor.ts"
+    },
     "./helpers/*": {
       "types": "./src/helpers/*.ts",
       "import": "./src/helpers/*.ts",
@@ -35,25 +51,72 @@
       "import": "./src/lib/*.ts",
       "default": "./src/lib/*.ts"
     },
+    "./groq/portfolio": {
+      "types": "./src/groq/portfolio/index.ts",
+      "import": "./src/groq/portfolio/index.ts",
+      "default": "./src/groq/portfolio/index.ts"
+    },
+    "./groq/course/*": {
+      "types": "./src/groq/course/*.ts",
+      "import": "./src/groq/course/*.ts",
+      "default": "./src/groq/course/*.ts"
+    },
+    "./groq/lessons/*": {
+      "types": "./src/groq/lessons/*.ts",
+      "import": "./src/groq/lessons/*.ts",
+      "default": "./src/groq/lessons/*.ts"
+    },
+    "./groq/student/*": {
+      "types": "./src/groq/student/*.ts",
+      "import": "./src/groq/student/*.ts",
+      "default": "./src/groq/student/*.ts"
+    },
+    "./groq/subreddit/*": {
+      "types": "./src/groq/subreddit/*.ts",
+      "import": "./src/groq/subreddit/*.ts",
+      "default": "./src/groq/subreddit/*.ts"
+    },
+    "./groq/post/*": {
+      "types": "./src/groq/post/*.ts",
+      "import": "./src/groq/post/*.ts",
+      "default": "./src/groq/post/*.ts"
+    },
+    "./groq/comment/*": {
+      "types": "./src/groq/comment/*.ts",
+      "import": "./src/groq/comment/*.ts",
+      "default": "./src/groq/comment/*.ts"
+    },
+    "./groq/vote/*": {
+      "types": "./src/groq/vote/*.ts",
+      "import": "./src/groq/vote/*.ts",
+      "default": "./src/groq/vote/*.ts"
+    },
+    "./groq/user/*": {
+      "types": "./src/groq/user/*.ts",
+      "import": "./src/groq/user/*.ts",
+      "default": "./src/groq/user/*.ts"
+    },
     "./groq/*": {
-      "types": "./src/groq/*.ts",
-      "import": "./src/groq/*.ts",
-      "default": "./src/groq/*.ts"
+      "types": "./src/groq/*/index.ts",
+      "import": "./src/groq/*/index.ts",
+      "default": "./src/groq/*/index.ts"
     },
-    "./live": {
-      "types": "./src/live/live.ts",
-      "import": "./src/live/live.ts",
-      "default": "./src/live/live.ts"
+    "./groq/*/*": {
+      "types": "./src/groq/*/*.ts",
+      "import": "./src/groq/*/*.ts",
+      "default": "./src/groq/*/*.ts"
     },
-    "./image": {
-      "types": "./src/helpers/urlFor.ts",
-      "import": "./src/helpers/urlFor.ts",
-      "default": "./src/helpers/urlFor.ts"
+    "./groq/*/*/*": {
+      "types": "./src/groq/*/*/*.ts",
+      "import": "./src/groq/*/*/*.ts",
+      "default": "./src/groq/*/*/*.ts"
     }
   },
   "scripts": {
     "clean": "echo 'No build needed - using source files'",
-    "build": "echo 'No build needed - using source files'"
+    "build": "echo 'No build needed - using source files'",
+    "check-types": "tsc --noEmit",
+    "lint": "echo 'No lint configured'"
   },
   "devDependencies": {
     "@types/node": "^20.19.9"

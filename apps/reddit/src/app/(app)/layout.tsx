@@ -5,8 +5,10 @@ import { ClerkProvider } from "@clerk/nextjs"
 import Header from "@/components/header/Header"
 import { SidebarInset, SidebarProvider } from "@workspace/ui"
 import { AppSidebar } from "@/components/app-sidebar"
-import { SanityLive } from "@workspace/sanity-utils/live"
-import { VisualEditingOverlay } from "@/components/VisualEditingOverlay"
+import { SanityLive } from "@workspace/sanity-utils/live/live.server"
+import { VisualEditing } from "next-sanity/visual-editing"
+import { draftMode } from "next/headers"
+import { DisableDraftMode } from "@/components/DisableDraftMode"
 
 const fontSans = Geist({
   subsets: ["latin"],
@@ -23,11 +25,13 @@ export const metadata: Metadata = {
   description: "Reddit Application",
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const isDraftMode = (await draftMode()).isEnabled;
+
   return (
     <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
       <html lang="en" suppressHydrationWarning>
@@ -46,8 +50,16 @@ export default function RootLayout({
             </SidebarInset>
           </SidebarProvider>
 
+          {/* Live content API - always rendered */}
           <SanityLive />
-          <VisualEditingOverlay />
+          
+          {/* Visual editing overlay - only in draft mode */}
+          {isDraftMode && (
+            <>
+              <VisualEditing />
+              <DisableDraftMode />
+            </>
+          )}
         </body>
       </html>
     </ClerkProvider>

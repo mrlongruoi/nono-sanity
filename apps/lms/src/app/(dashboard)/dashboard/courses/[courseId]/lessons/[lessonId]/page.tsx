@@ -5,7 +5,7 @@ import { PortableText } from "@portabletext/react";
 import { LoomEmbed } from "@/components/LoomEmbed";
 import { VideoPlayer } from "@/components/VideoPlayer";
 import { LessonCompleteButton } from "@/components/LessonCompleteButton";
-import { sanityFetch } from "@workspace/sanity-utils/live";
+import { sanityFetch } from "@workspace/sanity-utils/live/live.server";
 
 interface LessonPageProps {
   params: Promise<{
@@ -18,9 +18,24 @@ export default async function LessonPage({ params }: Readonly<LessonPageProps>) 
   const user = await currentUser();
   const { courseId, lessonId } = await params;
 
+  console.log("🔍 Lesson Page Debug:", {
+    courseId,
+    lessonId,
+    lessonIdType: typeof lessonId,
+  });
+
   const { data: lesson } = await sanityFetch({ query: getLessonByIdQuery, params: { id: lessonId } });
 
+  console.log("📦 Lesson Fetch Result:", {
+    lessonFound: !!lesson,
+    lessonData: lesson ? {
+      _id: lesson._id,
+      title: lesson.title,
+    } : null,
+  });
+
   if (!lesson) {
+    console.log("❌ Lesson not found, redirecting to course:", courseId);
     return redirect(`/dashboard/courses/${courseId}`);
   }
 
