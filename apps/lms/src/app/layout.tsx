@@ -2,10 +2,10 @@ import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { VisualEditing } from "next-sanity/visual-editing";
 import "@workspace/ui/globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
 import { DisableDraftMode } from "@/components/DisableDraftMode"
 import { draftMode } from "next/headers";
 import { SanityLive } from "@workspace/sanity-utils/live";
+import { Providers } from "@/components/providers";
 
 const fontSans = Geist({
   subsets: ["latin"],
@@ -28,7 +28,7 @@ export default async function RootLayout({
   children: React.ReactNode
 }>) {
   const isDraftMode = (await draftMode()).isEnabled;
-  
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -36,18 +36,13 @@ export default async function RootLayout({
       >
         {/* VisualEditing must always be rendered for Presentation Tool connection */}
         <VisualEditing />
-        
+
         {isDraftMode && <DisableDraftMode />}
 
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <Providers>
           <SanityLive />
           {children}
-        </ThemeProvider>
+        </Providers>
       </body>
     </html>
   )

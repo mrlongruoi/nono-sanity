@@ -59,6 +59,8 @@
     "@types/node": "^20.19.9"
   },
   "dependencies": {
-    "@sanity/image-url": "^1.2.0"
+    "@clerk/nextjs": "^6.35.4",
+    "@sanity/image-url": "^1.2.0",
+    "server-only": "^0.0.1"
   }
 }
