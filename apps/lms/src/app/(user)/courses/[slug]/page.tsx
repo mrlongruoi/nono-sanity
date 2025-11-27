@@ -3,9 +3,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { auth } from "@clerk/nextjs/server";
 import { urlFor } from "@workspace/sanity-utils/image";
-import { getCourseBySlug } from "@workspace/sanity-utils/groq/course/getCourseBySlug";
+import { getCourseBySlugQuery } from "@workspace/sanity-utils/groq/course/getCourseBySlug";
 import { isEnrolledInCourse } from "@workspace/sanity-utils/groq/student/isEnrolledInCourse";
 import { EnrollButton } from "@/components/EnrollButton";
+import { sanityFetch } from "@workspace/sanity-utils/live";
 
 // Force dynamic rendering to always check enrollment status
 export const dynamic = "force-dynamic";
@@ -19,7 +20,7 @@ interface CoursePageProps {
 
 export default async function CoursePage({ params }: Readonly<CoursePageProps>) {
   const { slug } = await params;
-  const course = await getCourseBySlug(slug);
+  const { data: course } = await sanityFetch({ query: getCourseBySlugQuery, params: { slug } });
   const { userId } = await auth();
 
   if (!course) {

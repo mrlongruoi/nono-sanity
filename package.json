@@ -9,17 +9,24 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
+    "@types/react": "^19.2.7",
     "@workspace/eslint-config": "workspace:*",
     "@workspace/typescript-config": "workspace:*",
     "prettier": "^3.6.2",
-    "turbo": "^2.5.5",
+    "turbo": "^2.6.1",
     "typescript": "5.7.3"
   },
-  "packageManager": "pnpm@10.4.1",
+  "packageManager": "pnpm@10.23.0+sha512.21c4e5698002ade97e4efe8b8b4a89a8de3c85a37919f957e7a0f30f38fbc5bbdd05980ffe29179b2fb6e6e691242e098d945d1601772cad0fef5fb6411e2a4b",
   "engines": {
     "node": ">=20"
   },
   "dependencies": {
-    "next-sanity": "^11.6.8"
+    "@sanity/client": "^7.13.0",
+    "@sanity/image-url": "^1.2.0",
+    "@sanity/preview-url-secret": "^3.0.0",
+    "@sanity/vision": "^4.19.0",
+    "groq": "^4.19.0",
+    "next-sanity": "^11.6.8",
+    "sanity": "^4.19.0"
   }
 }

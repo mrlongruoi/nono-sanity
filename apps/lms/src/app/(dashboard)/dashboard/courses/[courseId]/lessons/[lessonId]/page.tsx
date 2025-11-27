@@ -1,10 +1,11 @@
 import { redirect } from "next/navigation";
 import { currentUser } from "@clerk/nextjs/server";
-import { getLessonById } from "@workspace/sanity-utils/groq/lessons/getLessonById";
+import { getLessonByIdQuery } from "@workspace/sanity-utils/groq/lessons/getLessonById";
 import { PortableText } from "@portabletext/react";
 import { LoomEmbed } from "@/components/LoomEmbed";
 import { VideoPlayer } from "@/components/VideoPlayer";
 import { LessonCompleteButton } from "@/components/LessonCompleteButton";
+import { sanityFetch } from "@workspace/sanity-utils/live";
 
 interface LessonPageProps {
   params: Promise<{
@@ -17,7 +18,7 @@ export default async function LessonPage({ params }: Readonly<LessonPageProps>) 
   const user = await currentUser();
   const { courseId, lessonId } = await params;
 
-  const lesson = await getLessonById(lessonId);
+  const { data: lesson } = await sanityFetch({ query: getLessonByIdQuery, params: { id: lessonId } });
 
   if (!lesson) {
     return redirect(`/dashboard/courses/${courseId}`);

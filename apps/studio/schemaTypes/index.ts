@@ -7,6 +7,11 @@ import lessonLmsType from "./lms/lessonType";
 import moduleLmsType from "./lms/moduleType";
 import studentLmsType from "./lms/studentType";
 import lessonLmsCompletionType from "./lms/lessonCompletionType";
+import commentType from "./reddit/commentType";
+import postType from "./reddit/postType";
+import subredditType from "./reddit/subredditType";
+import userType from "./reddit/userType";
+import voteType from "./reddit/voteType";
 
 
 export const schemaTypes = [
@@ -18,5 +23,10 @@ export const schemaTypes = [
     lessonLmsCompletionType,
     lessonLmsType,
     moduleLmsType,
-    studentLmsType
+    studentLmsType,
+    commentType,
+    postType,
+    subredditType,
+    userType,
+    voteType,
 ]

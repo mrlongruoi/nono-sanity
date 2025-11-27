@@ -11,13 +11,19 @@
     "SANITY_API_READWRITE_TOKEN",
     "SANITY_API_TOKEN",
     "STRIPE_SECRET_KEY",
-    "STRIPE_WEBHOOK_SECRET"
+    "STRIPE_WEBHOOK_SECRET",
+    "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY",
+    "SANITY_API_ADMIN_TOKEN",
+    "GOOGLE_GENERATIVE_AI_API_KEY"
   ],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": [".next/**", "!.next/cache/**", "dist/**", "sanity/**"]
+    },
+    "@workspace/sanity-types#build": {
+      "outputs": []
     },
     "lint": {
       "dependsOn": ["^lint"]

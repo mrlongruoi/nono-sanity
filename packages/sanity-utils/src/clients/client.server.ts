@@ -1,3 +1,5 @@
+// Note: This module is only exported via the /server subpath in package.json.
+// This prevents it from being imported in client code.
 import { createClient, type SanityClient } from "@sanity/client";
 import { baseUrl } from "../lib/baseUrl";
 
